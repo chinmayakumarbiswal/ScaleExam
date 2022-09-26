@@ -13,7 +13,7 @@
                     <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="teacher.php" class="nav-link">Teacher</a></li>
                     <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-                    <li class="nav-item cta"><a href="login.php" class="nav-link"><span>Login</span></a></li>
+                    <li class="nav-item cta"><a href="./login/auth/login.php" class="nav-link"><span>Login</span></a></li>
                 </ul>
             </div>
         </div>

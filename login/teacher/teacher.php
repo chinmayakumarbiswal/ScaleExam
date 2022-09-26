@@ -5,11 +5,7 @@ $email=$_SESSION['email'];
 $usertype=$_SESSION['usertype'];
 if($_SESSION['email'] and $usertype=="Teacher")
 {
-  ?>
-  <script>
-        alert("welcome ");
-      </script>
-  <?php
+  $teacherData=getTeacherDetails($db,$email);
 }
 else {
   header('location:../include/logout.php');
@@ -50,12 +46,12 @@ else {
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="../assets/images/faces/face15.jpg" alt="">
+                  <img class="img-xs rounded-circle " src="../teacher/image/<?=$teacherData['profileimage']?>" alt="">
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-                  <span>Gold Member</span>
+                  <h5 class="mb-0 font-weight-normal"><?=$teacherData['name']?></h5>
+                  <span>Teacher</span>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -145,10 +141,10 @@ else {
               <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">Make Profile Public</a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
-                  <h6 class="p-3 mb-0">Profile</h6>
+                  <h6 class="p-3 mb-0">Your Profile Now <?=$teacherData['public']?></h6>
                   
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="./makeprofile.php?email=<?=$teacherData['email']?>&profile=public">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-web text-info"></i>
@@ -159,7 +155,7 @@ else {
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="./makeprofile.php?email=<?=$teacherData['email']?>&profile=private">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-layers text-danger"></i>
@@ -175,8 +171,8 @@ else {
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="../assets/images/faces/face15.jpg" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <img class="img-xs rounded-circle" src="../teacher/image/<?=$teacherData['profileimage']?>" alt="">
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name"><?=$teacherData['name']?></p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
