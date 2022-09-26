@@ -1,3 +1,22 @@
+<?php
+require('../include/database.php');
+require('../include/function.php');
+$email=$_SESSION['email'];
+$usertype=$_SESSION['usertype'];
+if($_SESSION['email'] and $usertype=="Student")
+{
+  ?>
+  <script>
+        alert("welcome ");
+      </script>
+  <?php
+}
+else {
+  header('location:../include/logout.php');
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,8 +42,8 @@
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="./teacher.php"><img src="../../images/logo.png" alt="logo" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="./teacher.php"><img src="../../images/logo.png" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="./student.php"><img src="../../images/logo.png" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="./student.php"><img src="../../images/logo.png" alt="logo" /></a>
         </div>
         <ul class="nav">
           <li class="nav-item profile">
@@ -106,7 +125,7 @@
         <!-- partial:../partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="./teacher.php"><img src="../../images/logo.png" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="./student.php"><img src="../../images/logo.png" alt="logo" /></a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -147,7 +166,7 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="../include/logout.php">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>
@@ -174,7 +193,7 @@
               <h3 class="page-title"> Student </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="./teacher.php">Student</a></li>
+                  <li class="breadcrumb-item"><a href="./student.php">Student</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Rooms</li>
                 </ol>
               </nav>
