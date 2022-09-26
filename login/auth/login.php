@@ -22,7 +22,6 @@
         $query="SELECT * FROM teacher WHERE email='$email' AND password='$password'";
         $runQuery=mysqli_query($db,$query);
         if(mysqli_num_rows($runQuery)){
-            $_SESSION['isUserLoggedIn']=true;
             $_SESSION['email']=$email;
             $_SESSION['usertype']=$userType;
             header('location:../teacher/teacher.php');

@@ -1,3 +1,17 @@
+<?php
+require('../include/database.php');
+require('../include/function.php');
+$email=$_SESSION['email'];
+$usertype=$_SESSION['usertype'];
+if($_SESSION['email'] and $usertype=="Teacher")
+{
+  
+}
+else {
+  header('location:../include/logout.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
