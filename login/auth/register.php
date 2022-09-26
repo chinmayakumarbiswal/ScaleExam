@@ -1,3 +1,79 @@
+<?php
+require('../include/database.php');
+require('../include/function.php');
+if(isset($_POST['createu'])){
+	$name=mysqli_real_escape_string($db,$_POST['name']);
+  $email=mysqli_real_escape_string($db,$_POST['email']);
+  $useras=mysqli_real_escape_string($db,$_POST['userAs']);
+  $bio=mysqli_real_escape_string($db,$_POST['bio']);
+  $password=mysqli_real_escape_string($db,$_POST['password']);
+
+  $image_name=$_FILES['imageupload']['name'];
+  $image_tmp=$_FILES['imageupload']['tmp_name'];
+
+  // echo $name."<br><br>";
+  // echo $email."<br><br>";
+  // echo $useras."<br><br>";
+  // echo $bio."<br><br>";
+  // echo $image_name."<br><br>";
+  // echo $image_tmp."<br><br>";
+  // echo $password."<br><br>";
+
+
+  if ($useras == "Teacher") {
+    $query="SELECT * FROM teacher WHERE email='$email'";
+    $runQuery=mysqli_query($db,$query);
+    if(mysqli_num_rows($runQuery)){
+      ?>
+        <script>
+          alert("Dear teacher you aleardy have an account.");
+        </script>
+      <?php
+    }
+    else {
+      if(move_uploaded_file($image_tmp,"../teacher/image/$image_name")){
+        $query="INSERT INTO teacher (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
+        $run=mysqli_query($db,$query) or die(mysqli_error($db));
+        if ($run) {
+            header('location:./login.php');
+        }
+        else {
+            echo "inserted error";
+        }
+      }
+    }
+  }
+  else if ($useras == "Student") {
+    $query="SELECT * FROM student WHERE email='$email'";
+    $runQuery=mysqli_query($db,$query);
+    if(mysqli_num_rows($runQuery)){
+      ?>
+        <script>
+          alert("Dear student you aleardy have an account.");
+        </script>
+      <?php
+    }
+    else {
+      if(move_uploaded_file($image_tmp,"../teacher/image/$image_name")){
+        $query="INSERT INTO student (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
+        $run=mysqli_query($db,$query) or die(mysqli_error($db));
+        if ($run) {
+            header('location:./login.php');
+        }
+        else {
+            echo "inserted error";
+        }
+      }
+    }
+
+  }
+	  
+	
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,14 +102,14 @@
             <div class="card col-lg-4 mx-auto">
               <div class="card-body px-5 py-5">
                 <h3 class="card-title text-left mb-3">Register</h3>
-                <form>
+                <form method="post" action="" class="reg-page" enctype="multipart/form-data">
                   <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control p_input">
+                    <label>Name</label>
+                    <input type="text" class="form-control p_input" name="name" >
                   </div>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control p_input">
+                    <input type="email" class="form-control p_input" name="email">
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 col-form-label">Create User As</label>
@@ -52,18 +128,18 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleTextarea1">Bio</label>
-                    <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                    <textarea class="form-control" id="exampleTextarea1" rows="4" name="bio"></textarea>
                   </div>
                   <div class="form-group">
                     <label>Profile Image</label>
-                    <input type="file" class="form-control p_input">
+                    <input class="form-control p_input" type="file" id="formFile" name="imageupload" accept="image/* " required>
                   </div>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control p_input">
+                    <input type="password" class="form-control p_input" name="password">
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block enter-btn" name="createu">Login</button>
                   </div>
                   <p class="sign-up text-center">Already have an Account?<a href="#"> Log In</a></p>
                   <p class="terms">By creating an account you are accepting our<a href="./login.php"> Terms & Conditions</a></p>
