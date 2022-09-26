@@ -141,7 +141,7 @@ if(isset($_POST['createu'])){
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-block enter-btn" name="createu">Login</button>
                   </div>
-                  <p class="sign-up text-center">Already have an Account?<a href="#"> Log In</a></p>
+                  <p class="sign-up text-center">Already have an Account?<a href="./login.php"> Log In</a></p>
                   <p class="terms">By creating an account you are accepting our<a href="./login.php"> Terms & Conditions</a></p>
                 </form>
               </div>

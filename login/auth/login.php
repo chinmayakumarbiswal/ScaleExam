@@ -1,3 +1,50 @@
+<?php
+    require('../include/database.php');
+    require('../include/function.php');
+    if(isset($_POST['LoginInto'])){
+      $email=mysqli_real_escape_string($db,$_POST['email']);
+      $password=mysqli_real_escape_string($db,$_POST['password']);
+      $userType=mysqli_real_escape_string($db,$_POST['userType']);
+      if ($userType == "Student") {
+        $query="SELECT * FROM student WHERE email='$email' AND password='$password'";
+        $runQuery=mysqli_query($db,$query);
+        if(mysqli_num_rows($runQuery)){
+            $_SESSION['isUserLoggedIn']=true;
+            $_SESSION['email']=$email;
+            $_SESSION['usertype']=$userType;
+            header('location:../student/student.php');
+        }
+        else{
+            echo"<script>alert('Incorrect email and password !');</script>";
+        }
+      }
+      else if ($userType == "Teacher"){
+        $query="SELECT * FROM teacher WHERE email='$email' AND password='$password'";
+        $runQuery=mysqli_query($db,$query);
+        if(mysqli_num_rows($runQuery)){
+            $_SESSION['isUserLoggedIn']=true;
+            $_SESSION['email']=$email;
+            $_SESSION['usertype']=$userType;
+            header('location:../teacher/teacher.php');
+        }
+        else{
+            echo"<script>alert('Incorrect email and password !');</script>";
+        }
+      }
+
+
+      // echo $email."<br><br>";
+      // echo $password."<br><br>";
+      // echo $userType."<br><br>";
+
+        
+
+
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,14 +74,21 @@
             <div class="card col-lg-4 mx-auto">
               <div class="card-body px-5 py-5">
                 <h3 class="card-title text-left mb-3">Login</h3>
-                <form>
+                <form action="" method="post">
                   <div class="form-group">
                     <label>Email *</label>
-                    <input type="text" class="form-control p_input">
+                    <input type="text" class="form-control p_input" name="email">
                   </div>
                   <div class="form-group">
                     <label>Password *</label>
-                    <input type="text" class="form-control p_input">
+                    <input type="password" class="form-control p_input" name="password">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelectGender">User Type</label>
+                    <select class="form-control" id="exampleSelectGender" name="userType">
+                      <option value="Teacher">Teacher</option>
+                      <option value="Student">Student</option>
+                    </select>
                   </div>
                   <div class="form-group d-flex align-items-center justify-content-between">
                     <div class="form-check">
@@ -44,7 +98,7 @@
                     <a href="#" class="forgot-pass">Forgot password</a>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block enter-btn" name="LoginInto">Login</button>
                   </div>
                   <div class="d-flex">
                     <button class="btn btn-facebook mr-2 col">
