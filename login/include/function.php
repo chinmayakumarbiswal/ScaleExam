@@ -6,6 +6,20 @@
         return $data;
     }
 
+    function getAllTeacher($db){
+        $query="SELECT * FROM teacher where public='public'";
+        $run=mysqli_query($db,$query);
+        $data=array();
+        while($d=mysqli_fetch_assoc($run)){
+            $data[]=$d;
+        }
+        return $data;
+    }
+
+
+
+
+    
     function getAllPost($db,$uemail){
         $query="SELECT * FROM csrtimesheet WHERE emailOfStd='$uemail' ORDER BY id DESC";
         $run=mysqli_query($db,$query);

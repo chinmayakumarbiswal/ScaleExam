@@ -1,3 +1,9 @@
+<?php
+require('./login/include/database.php');
+require('./login/include/function.php');
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,82 +36,33 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 class="mb-4">Our Experience Advisor</h2>
+                <h2 class="mb-4">Our Teacher</h2>
             </div>
         </div>
         <div class="row">
+            
+        <?php
+            $getTeacher=getAllTeacher($db);          
+            foreach($getTeacher as $Teacherdetails){
+        ?>
             <div class="col-lg-4 mb-sm-4 ftco-animate">
                 <div class="staff">
                     <div class="d-flex mb-4">
                         <div class="img"
-                            style="background-image:url(images/xperson_1.jpg.pagespeed.ic.a2MnMHMs44.webp)"></div>
+                            style="background-image:url(./login/teacher/image/<?=$Teacherdetails['profileimage']?>)"></div>
                         <div class="info ml-4">
-                            <h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
-                            <span class="position">CSE Teacher</span>
-                            <p class="ftco-social d-flex">
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-twitter"></span></a>
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-facebook"></span></a>
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-instagram"></span></a>
-                            </p>
+                            <h3><a href="teacher-single.html"><?=$Teacherdetails['name']?></a></h3>
+                            
                         </div>
                     </div>
                     <div class="text">
-                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                            unorthographic life One day however a small line of blind text by the name</p>
+                        <p><?=$Teacherdetails['bio']?></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mb-sm-4 ftco-animate">
-                <div class="staff">
-                    <div class="d-flex mb-4">
-                        <div class="img"
-                            style="background-image:url(images/xperson_2.jpg.pagespeed.ic.Xrdu_nPZRp.webp)"></div>
-                        <div class="info ml-4">
-                            <h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
-                            <span class="position">CSE Teacher</span>
-                            <p class="ftco-social d-flex">
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-twitter"></span></a>
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-facebook"></span></a>
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-instagram"></span></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text">
-                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                            unorthographic life One day however a small line of blind text by the name</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-sm-4 ftco-animate">
-                <div class="staff">
-                    <div class="d-flex mb-4">
-                        <div class="img"
-                            style="background-image:url(images/xperson_3.jpg.pagespeed.ic.Cln-jaM1jK.webp)"></div>
-                        <div class="info ml-4">
-                            <h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
-                            <span class="position">CSE Teacher</span>
-                            <p class="ftco-social d-flex">
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-twitter"></span></a>
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-facebook"></span></a>
-                                <a href="#" class="d-flex justify-content-center align-items-center"><span
-                                        class="icon-instagram"></span></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text">
-                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                            unorthographic life One day however a small line of blind text by the name</p>
-                    </div>
-                </div>
-            </div>
+        <?php
+            }
+        ?>
 
 
 
