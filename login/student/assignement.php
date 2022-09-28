@@ -210,7 +210,7 @@ else {
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Create Ec2</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code></p>
                     <div class="template-demo">
                       <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
                         <i class="mdi mdi-open-in-new"></i> Open Assignement 

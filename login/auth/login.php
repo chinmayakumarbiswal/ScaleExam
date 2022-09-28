@@ -76,11 +76,11 @@
                 <form action="" method="post">
                   <div class="form-group">
                     <label>Email *</label>
-                    <input type="text" class="form-control p_input" name="email">
+                    <input type="text" class="form-control p_input" name="email" required />
                   </div>
                   <div class="form-group">
                     <label>Password *</label>
-                    <input type="password" class="form-control p_input" name="password">
+                    <input type="password" class="form-control p_input" name="password" required />
                   </div>
                   <div class="form-group">
                     <label for="exampleSelectGender">User Type</label>

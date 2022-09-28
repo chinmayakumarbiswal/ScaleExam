@@ -208,7 +208,7 @@ else {
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Exam</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code></p>
                     <div class="template-demo">
                       <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./exam.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Exam 
@@ -222,7 +222,7 @@ else {
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Assignement</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code></p>
                     <div class="template-demo">
                       <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./assignement.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Assignement 
@@ -236,7 +236,7 @@ else {
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Documents</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code></p>
                     <div class="template-demo">
                       <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./document.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Documents 

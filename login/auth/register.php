@@ -105,18 +105,18 @@ if(isset($_POST['createu'])){
                 <form method="post" action="" class="reg-page" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control p_input" name="name" >
+                    <input type="text" class="form-control p_input" name="name" required />
                   </div>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control p_input" name="email">
+                    <input type="email" class="form-control p_input" name="email" required />
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 col-form-label">Create User As</label>
                     <div class="col-sm-4">
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="userAs" value="Teacher"> Teacher </label>
+                          <input type="radio" class="form-check-input" name="userAs" value="Teacher" > Teacher </label>
                       </div>
                     </div>
                     <div class="col-sm-5">
@@ -136,7 +136,7 @@ if(isset($_POST['createu'])){
                   </div>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control p_input" name="password">
+                    <input type="password" class="form-control p_input" name="password" required />
                   </div>
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-block enter-btn" name="createu">Login</button>
