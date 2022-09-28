@@ -5,11 +5,19 @@ $email=$_SESSION['email'];
 $usertype=$_SESSION['usertype'];
 if($_SESSION['email'] and $usertype=="Student")
 {
-  
+  $studentData=getStudentDetails($db,$email);
 }
 else {
   header('location:../include/logout.php');
 }
+
+if ($_GET['room']) {
+  $roomIdAuto=$_GET['room'];
+}
+else {
+  header('location:./student.php');
+}
+
 ?>
 
 
@@ -46,12 +54,12 @@ else {
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="../assets/images/faces/face15.jpg" alt="">
+                  <img class="img-xs rounded-circle " src="../student/image/<?=$studentData['profileimage']?>" alt="">
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-                  <span>Gold Member</span>
+                  <h5 class="mb-0 font-weight-normal"><?=$studentData['name']?></h5>
+                  <span>Student</span>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -138,8 +146,8 @@ else {
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="../assets/images/faces/face15.jpg" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <img class="img-xs rounded-circle" src="../student/image/<?=$studentData['profileimage']?>" alt="">
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name"><?=$studentData['name']?></p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -202,7 +210,7 @@ else {
                     <h4 class="card-title">Exam</h4>
                     <p class="card-description">Room Id <code>55454545</code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./exam.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./exam.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Exam 
                       </button> 
                     </div>
@@ -216,7 +224,7 @@ else {
                     <h4 class="card-title">Assignement</h4>
                     <p class="card-description">Room Id <code>55454545</code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./assignement.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./assignement.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Assignement 
                       </button> 
                     </div>
@@ -230,7 +238,7 @@ else {
                     <h4 class="card-title">Documents</h4>
                     <p class="card-description">Room Id <code>55454545</code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./document.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./document.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Documents 
                       </button> 
                     </div>

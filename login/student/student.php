@@ -5,15 +5,43 @@ $email=$_SESSION['email'];
 $usertype=$_SESSION['usertype'];
 if($_SESSION['email'] and $usertype=="Student")
 {
-  ?>
-  <script>
-        alert("welcome ");
-      </script>
-  <?php
+  $studentData=getStudentDetails($db,$email);
 }
 else {
   header('location:../include/logout.php');
 }
+
+if(isset($_POST['joinRoom'])){
+  $roomId=mysqli_real_escape_string($db,$_POST['roomId']);
+
+  $findRoom=getRoomDetailsByStudent($db,$roomId);
+  $roomName=$findRoom['name'];
+  $details=$findRoom['details'];
+  $teacherEmail=$findRoom['teacherEmail'];
+  $roomAuto=$findRoom['roomIdAuto'];
+  $studentEmail=$email;
+
+  if ($roomAuto) {
+    $query="INSERT INTO joinroomstudent (name,details,teacherEmail,roomIdAuto,studentEmail) VALUES('$roomName','$details','$teacherEmail','$roomAuto','$studentEmail')";
+    $run=mysqli_query($db,$query) or die(mysqli_error($db));
+    if ($run) {
+    header('location:./student.php');
+    }
+    else {
+      echo"<script>alert('Error found in join room !');</script>";
+    }
+  }
+  else {
+    echo"<script>alert('Room not found !');</script>";
+  }
+  
+
+  
+
+
+}
+
+
 ?>
 
 
@@ -38,6 +66,42 @@ else {
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+
+
+  <!-- Modal -->
+  <form method="post" action="">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Join Room</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Room Id</label>
+                      <input type="text" class="form-control form-control-lg" placeholder="Room Id" aria-label="roomId" name="roomId">
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="joinRoom">Join Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -50,12 +114,12 @@ else {
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="../assets/images/faces/face15.jpg" alt="">
+                  <img class="img-xs rounded-circle " src="../student/image/<?=$studentData['profileimage']?>" alt="">
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-                  <span>Gold Member</span>
+                  <h5 class="mb-0 font-weight-normal"><?=$studentData['name']?></h5>
+                  <span>Student</span>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -140,15 +204,15 @@ else {
             </ul>
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">Join Room</a>
+                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" data-target="#exampleModalCenter"href="#">Join Room</a>
               </li>
               
 
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="../assets/images/faces/face15.jpg" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <img class="img-xs rounded-circle" src="../student/image/<?=$studentData['profileimage']?>" alt="">
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name"><?=$studentData['name']?></p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -204,23 +268,34 @@ else {
 
 
               
+            <?php
+              $rooms=getAllRoomsByStudent($db,$email);          
+              foreach($rooms as $roomGet){
+            ?>
+              
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">AWS</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
-                    <p>This is a testing room for aws cloud domain student.</p>
+                    <h4 class="card-title"><?=$roomGet['name']?></h4>
+                    <p class="card-description">Room Id <code><?=$roomGet['roomIdAuto']?></code></p>
+                    <p><?=$roomGet['details']?>.</p>
+                    <p>Teacher Email - <?=$roomGet['teacherEmail']?></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./room.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./room.php?room=<?=$roomGet['roomIdAuto']?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Room 
                       </button> 
-                      <button type="button" class="btn btn-outline-warning btn-icon-text" onclick="location.href='whatsapp://send?text=Student Please join the room using 45515454 ';">
+                      <button type="button" class="btn btn-outline-warning btn-icon-text" onclick="location.href='whatsapp://send?text=Friends Please join the room using - <?=$roomGet['roomIdAuto']?> ';">
                         <i class="mdi mdi-whatsapp"></i> Share Room
                       </button> 
                     </div>
                   </div>
                 </div>
               </div>
+
+
+            <?php
+              }
+            ?>
 
 
 

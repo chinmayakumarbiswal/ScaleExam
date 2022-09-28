@@ -54,7 +54,7 @@ if(isset($_POST['createu'])){
       <?php
     }
     else {
-      if(move_uploaded_file($image_tmp,"../teacher/image/$image_name")){
+      if(move_uploaded_file($image_tmp,"../student/image/$image_name")){
         $query="INSERT INTO student (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
         $run=mysqli_query($db,$query) or die(mysqli_error($db));
         if ($run) {

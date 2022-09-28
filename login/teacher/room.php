@@ -10,6 +10,14 @@ if($_SESSION['email'] and $usertype=="Teacher")
 else {
   header('location:../include/logout.php');
 }
+
+
+if ($_GET['room']) {
+  $roomIdAuto=$_GET['room'];
+}
+else {
+  header('location:./teacher.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,13 +133,7 @@ else {
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu"></span>
             </button>
-            <ul class="navbar-nav w-100">
-              <li class="nav-item w-100">
-                <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                  <input type="text" class="form-control" placeholder="Search products">
-                </form>
-              </li>
-            </ul>
+            
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
@@ -200,7 +202,7 @@ else {
                     <h4 class="card-title">Exam</h4>
                     <p class="card-description">Room Id <code>55454545</code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./exam.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./exam.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Exam 
                       </button> 
                     </div>
@@ -214,7 +216,7 @@ else {
                     <h4 class="card-title">Assignement</h4>
                     <p class="card-description">Room Id <code>55454545</code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./assignement.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./assignement.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Assignement 
                       </button> 
                     </div>
@@ -228,7 +230,7 @@ else {
                     <h4 class="card-title">Documents</h4>
                     <p class="card-description">Room Id <code>55454545</code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./document.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./document.php?room=<?=$roomIdAuto?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Documents 
                       </button> 
                     </div>

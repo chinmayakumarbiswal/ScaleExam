@@ -10,6 +10,24 @@ if($_SESSION['email'] and $usertype=="Teacher")
 else {
   header('location:../include/logout.php');
 }
+
+if(isset($_POST['insertRoom'])){
+  $roomName=mysqli_real_escape_string($db,$_POST['roomName']);
+  $details=mysqli_real_escape_string($db,$_POST['details']);
+  $teacherEmail=$teacherData['email'];
+  $roomAuto=$roomName.randPass();
+
+  $query="INSERT INTO rooms (roomIdAuto,name,details,teacherEmail) VALUES('$roomAuto','$roomName','$details','$teacherEmail')";
+  $run=mysqli_query($db,$query) or die(mysqli_error($db));
+  if ($run) {
+  header('location:./teacher.php');
+  }
+  else {
+    echo"<script>alert('Error fount in room creation !');</script>";
+  }
+
+
+}
 ?>
 
 
@@ -34,6 +52,47 @@ else {
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+
+
+  <!-- Modal -->
+  <form method="post" action="">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Create Room</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Room Name</label>
+                      <input type="text" class="form-control form-control-lg" placeholder="Room Name" aria-label="roomName" name="roomName">
+                    </div>
+                    <div class="form-group">
+                      <label>Details About Room</label>
+                      <input type="text" class="form-control form-control-lg" placeholder="This Room is for " aria-label="details" name="details">
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="insertRoom">Create Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+
+
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -127,16 +186,10 @@ else {
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu"></span>
             </button>
-            <ul class="navbar-nav w-100">
-              <li class="nav-item w-100">
-                <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                  <input type="text" class="form-control" placeholder="Search products">
-                </form>
-              </li>
-            </ul>
+            
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create New Room</a>
+                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" data-target="#exampleModalCenter"href="#">+ Create New Room</a>
               </li>
               <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">Make Profile Public</a>
@@ -226,19 +279,22 @@ else {
 
             <div class="row">
 
-
+            <?php
+              $rooms=getAllRooms($db,$email);          
+              foreach($rooms as $roomGet){
+            ?>
               
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">AWS</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
-                    <p>This is a testing room for aws cloud domain student.</p>
+                    <h4 class="card-title"><?=$roomGet['name']?></h4>
+                    <p class="card-description">Room Id <code><?=$roomGet['roomIdAuto']?></code></p>
+                    <p><?=$roomGet['details']?>.</p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./room.php';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./room.php?room=<?=$roomGet['roomIdAuto']?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Room 
                       </button> 
-                      <button type="button" class="btn btn-outline-warning btn-icon-text" onclick="location.href='whatsapp://send?text=Student Please join the room using 45515454 ';">
+                      <button type="button" class="btn btn-outline-warning btn-icon-text" onclick="location.href='whatsapp://send?text=Student Please join the room using - <?=$roomGet['roomIdAuto']?> ';">
                         <i class="mdi mdi-whatsapp"></i> Share Room
                       </button> 
                     </div>
@@ -246,6 +302,10 @@ else {
                 </div>
               </div>
 
+
+            <?php
+              }
+            ?>
 
 
 
