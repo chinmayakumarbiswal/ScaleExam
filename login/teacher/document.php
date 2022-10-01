@@ -40,6 +40,39 @@ else {
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+    <!-- Modal -->
+<div class="modal fade" id="CreatePDF" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Document Name</label>
+                      <input type="text" class="form-control form-control-lg" placeholder="Document Name" aria-label="documentName" name="documentName">
+                    </div>
+                    <div class="form-group">
+                      <label>Upload Document</label>
+                      <input type="file" class="form-control form-control-lg" name="details">
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -136,7 +169,7 @@ else {
             
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create Document</a>
+              <a class="nav-link btn btn-success create-new-button" data-toggle="modal" data-target="#CreatePDF">+ Create Document</a>
               </li>
               
 
