@@ -17,6 +17,27 @@ if ($_GET['room']) {
 else {
   header('location:./teacher.php');
 }
+
+if(isset($_POST['createdocument']))
+{
+ $doucumentname= mysqli_real_escape_string($db,$_POST['documentName']);
+ $filename=$_FILES['upload']['name'];
+ $filelocation=$_FILES['upload']['tmp_name'];
+//  echo $doucumentname;
+//  echo $filename;
+//  echo $filelocation;
+ if(move_uploaded_file($filelocation,"../alldocuments/$filename"))
+ {
+  $query="INSERT INTO documentlog (roomIdAuto,teachersEmail,documentName,filename) VALUES('$roomIdAuto','$email','$doucumentname','$filename')";
+        $run=mysqli_query($db,$query) or die(mysqli_error($db));
+        if ($run) {
+            header('location:./document.php?room='.$roomIdAuto);
+        }
+        else {
+            echo "inserted error";
+        }
+ }
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +62,8 @@ else {
   </head>
   <body>
     <!-- Modal -->
+  <form action="" method="post" enctype="multipart/form-data">
+
 <div class="modal fade" id="CreatePDF" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -60,7 +83,7 @@ else {
                     </div>
                     <div class="form-group">
                       <label>Upload Document</label>
-                      <input type="file" class="form-control form-control-lg" name="details">
+                      <input type="file" class="form-control form-control-lg" name="upload">
                     </div>
                   </div>
                 </div>
@@ -68,11 +91,12 @@ else {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" name="createdocument">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+</form>
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
