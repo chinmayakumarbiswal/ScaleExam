@@ -50,6 +50,16 @@
         return $data;
     }
 
+    function getAllDocuments($db,$roomIdAuto){
+        $query="SELECT * FROM documentlog where roomIdAuto='$roomIdAuto' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=array();
+        while($d=mysqli_fetch_assoc($run)){
+            $data[]=$d;
+        }
+        return $data;
+    }
+
 
     function randPass() {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
