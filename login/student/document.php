@@ -204,16 +204,19 @@ else {
 
 
             <div class="row">
-
+            <?php
+             $documents=getAllDocuments($db,$roomIdAuto);          
+             foreach($documents as $documentGet){
+            ?>
 
               
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">AWS Note</h4>
-                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code></p>
+                    <h4 class="card-title"><?=$documentGet['documentName']?></h4>
+                    <p class="card-description">Room Id <code><?=$documentGet['roomIdAuto']?></code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='../alldocuments/<?=$documentGet['filename']?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Document 
                       </button> 
                     </div>
@@ -221,6 +224,9 @@ else {
                 </div>
               </div>
 
+              <?php
+               }
+               ?>
 
 
 
