@@ -59,6 +59,15 @@
         }
         return $data;
     }
+    function getAssignement($db,$roomIdAuto){
+        $query="SELECT * FROM assignementlog where roomIdAuto='$roomIdAuto' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=array();
+        while($d=mysqli_fetch_assoc($run)){
+            $data[]=$d;
+        }
+        return $data;
+    }
 
 
     function randPass() {
