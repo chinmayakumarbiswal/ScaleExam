@@ -71,7 +71,7 @@ if(isset($_POST['createdocument']))
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Create Document</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -95,7 +95,7 @@ if(isset($_POST['createdocument']))
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="createdocument">Save changes</button>
+                        <button type="submit" class="btn btn-primary" name="createdocument">Upload</button>
                     </div>
                 </div>
             </div>
@@ -312,7 +312,7 @@ if(isset($_POST['createdocument']))
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
                             scaleexam.in </span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> This is made with ❤️
-                            by <a href="https://www.bootstrapdash.com/bootstrap-admin-template/"
+                            by <a href="https://chinmayakumarbiswal.in/"
                                 target="_blank">Chinmaya </a></span>
                     </div>
                 </footer>
