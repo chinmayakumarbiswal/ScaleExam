@@ -18,6 +18,25 @@ if ($_GET['room']) {
 else {
   header('location:./teacher.php');
 }
+
+
+
+if(isset($_POST['createdocument']))
+{
+ $name= mysqli_real_escape_string($db,$_POST['documentName']);
+ $details= mysqli_real_escape_string($db,$_POST['documentName']);
+ $teacherEmail= $teacherData['email'];
+ $UniqueId=randPass().$roomIdAuto;
+
+  $query="INSERT INTO assignementlog (name,roomIdAuto,teacherEmail,details,UniqueId) VALUES('$name','$roomIdAuto','$teacherEmail','$details','$UniqueId')";
+    $run=mysqli_query($db,$query) or die(mysqli_error($db));
+    if ($run) {
+      header('location:./assignement.php?room='.$roomIdAuto);
+    }
+    else {
+      echo "inserted error";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +60,50 @@ else {
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+
+
+    <!-- Modal -->
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <div class="modal fade" id="CreatePDF" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Create Assignement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Assignement Name</label>
+                                        <input type="text" class="form-control form-control-lg"
+                                            placeholder="Document Name" aria-label="documentName" name="documentName">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleTextarea1">Assignement Details</label>
+                                      <textarea class="form-control" id="exampleTextarea1" placeholder="Document Details" name="details"rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="createdocument">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -137,7 +200,7 @@ else {
             
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create Assignement</a>
+                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" data-target="#CreatePDF">+ Create Assignement</a>
               </li>
               
 
@@ -200,14 +263,18 @@ else {
 
 
             <div class="row">
-
+            <?php
+              $assignement=getAssignement($db,$roomIdAuto);          
+              foreach($assignement as $assignementGet){
+            ?>
 
               
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Create Ec2</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <h4 class="card-title"><?=$assignementGet['name']?></h4>
+                    <p class="card-description">Room Id <code><?=$assignementGet['roomIdAuto']?></code></p>
+                    <p class="card-description">Assignement Id <code><?=$assignementGet['UniqueId']?></code></p>
                     <div class="template-demo">
                       <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
                         <i class="mdi mdi-open-in-new"></i> Open Assignement 
@@ -217,7 +284,9 @@ else {
                 </div>
               </div>
 
-
+<?php
+              }
+?>
 
 
 
