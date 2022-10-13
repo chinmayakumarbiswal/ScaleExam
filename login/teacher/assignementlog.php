@@ -14,29 +14,13 @@ else {
 
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
+  $assignementid=$_GET['assignementid'];
 }
 else {
   header('location:./teacher.php');
 }
 
 
-
-if(isset($_POST['createdocument']))
-{
- $name= mysqli_real_escape_string($db,$_POST['documentName']);
- $details= mysqli_real_escape_string($db,$_POST['documentName']);
- $teacherEmail= $teacherData['email'];
- $UniqueId=randPass().$roomIdAuto;
-
-  $query="INSERT INTO assignementlog (name,roomIdAuto,teacherEmail,details,UniqueId) VALUES('$name','$roomIdAuto','$teacherEmail','$details','$UniqueId')";
-    $run=mysqli_query($db,$query) or die(mysqli_error($db));
-    if ($run) {
-      header('location:./assignement.php?room='.$roomIdAuto);
-    }
-    else {
-      echo "inserted error";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -262,37 +246,68 @@ if(isset($_POST['createdocument']))
             </div>
 
 
-            <div class="row">
-            <?php
-              $assignement=getAssignement($db,$roomIdAuto);          
-              foreach($assignement as $assignementGet){
-            ?>
 
-              
-              <div class="col-md-4 grid-margin stretch-card">
+
+
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Name</h4>
+                  <div class="media">
+                    <div class="media-body">
+                      <p class="card-text">Content</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"><?=$assignementGet['name']?></h4>
-                    <p class="card-description">Room Id <code><?=$assignementGet['roomIdAuto']?></code></p>
-                    <p class="card-description">Assignement Id <code><?=$assignementGet['UniqueId']?></code></p>
-                    <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='assignementlog.php?room=<?=$assignementGet['roomIdAuto']?>&assignementid=<?=$assignementGet['UniqueId']?>';">
-                        <i class="mdi mdi-open-in-new"></i> Open Assignement 
-                      </button> 
+                    <h4 class="card-title">Student Uploaded File</h4>
+                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code>
+                    <p class="card-description">Assignement Id <code><?=$assignementid?></code>
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Student Name</th>
+                            <th>Student Email</th>
+                            <th>Uploaded File</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td> situ</td>
+                            <td> situ@chinmayakumarbiswal.in </td>
+                            <td> 
+                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='https://google.com';">
+                              <i class="mdi mdi-open-in-app"></i> Open File
+                            </button>
+                            </td>
+                          </tr>
+
+
+
+
+
+
+
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
 
-<?php
-              }
-?>
-
-
-
-
-
-            </div>
+            
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../partials/_footer.html -->
