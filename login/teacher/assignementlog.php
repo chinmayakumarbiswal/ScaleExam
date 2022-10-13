@@ -15,6 +15,7 @@ else {
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
   $assignementid=$_GET['assignementid'];
+  $getallDetails=getAssignementByAssignementId($db,$assignementid);
 }
 else {
   header('location:./teacher.php');
@@ -252,10 +253,10 @@ else {
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Name</h4>
+                  <h4 class="card-title"><?=$getallDetails['name']?></h4>
                   <div class="media">
                     <div class="media-body">
-                      <p class="card-text">Content</p>
+                      <p class="card-text"><?=$getallDetails['details']?></p>
                     </div>
                   </div>
                 </div>
@@ -284,17 +285,26 @@ else {
                           </tr>
                         </thead>
                         <tbody>
+
+                        <?php
+                          $assignement=getAssignementByAssignementUniqueId($db,$assignementid);          
+                          foreach($assignement as $assignementGet){
+                        ?>
+
+
                           <tr>
-                            <td> situ</td>
-                            <td> situ@chinmayakumarbiswal.in </td>
+                            <td><?=$assignementGet['studentName']?></td>
+                            <td><?=$assignementGet['studentEmail']?></td>
                             <td> 
-                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='https://google.com';">
+                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='<?=$assignementGet['pdf']?>';">
                               <i class="mdi mdi-open-in-app"></i> Open File
                             </button>
                             </td>
                           </tr>
 
-
+                        <?php
+                          }
+                        ?>
 
 
 

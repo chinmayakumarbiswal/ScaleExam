@@ -24,7 +24,7 @@ else {
 if(isset($_POST['createdocument']))
 {
  $name= mysqli_real_escape_string($db,$_POST['documentName']);
- $details= mysqli_real_escape_string($db,$_POST['documentName']);
+ $details= mysqli_real_escape_string($db,$_POST['details']);
  $teacherEmail= $teacherData['email'];
  $UniqueId=randPass().$roomIdAuto;
 
