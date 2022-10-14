@@ -13,6 +13,9 @@ else {
 
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
+
+  $assignementid=$_GET['assignementid'];
+  $getallDetails=getAssignementByAssignementId($db,$assignementid);
 }
 else {
   header('location:./student.php');
@@ -42,6 +45,9 @@ else {
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+
+
+
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -193,7 +199,7 @@ else {
               <h3 class="page-title"> Assignement </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="./student.php">Student</a></li>
+                  <li class="breadcrumb-item"><a href="./teacher.php">Teacher</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Rooms</li>
                   <li class="breadcrumb-item active" aria-current="page">Room Id</li>
                   <li class="breadcrumb-item active" aria-current="page">Assignement</li>
@@ -202,48 +208,84 @@ else {
             </div>
 
 
-            <div class="row">
 
 
-              
-            <?php
-              $assignement=getAssignement($db,$roomIdAuto);          
-              foreach($assignement as $assignementGet){
-            ?>
 
-              
-              <div class="col-md-4 grid-margin stretch-card">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"><?=$getallDetails['name']?></h4>
+                  <div class="media">
+                    <div class="media-body">
+                      <p class="card-text"><?=$getallDetails['details']?></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"><?=$assignementGet['name']?></h4>
-                    <p class="card-description">Room Id <code><?=$assignementGet['roomIdAuto']?></code></p>
-                    <p class="card-description">Assignement Id <code><?=$assignementGet['UniqueId']?></code></p>
-                    <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='assignementlog.php?room=<?=$assignementGet['roomIdAuto']?>&assignementid=<?=$assignementGet['UniqueId']?>';">
-                        <i class="mdi mdi-open-in-new"></i> Open Assignement 
-                      </button> 
+                    <h4 class="card-title">Student Uploaded File</h4>
+                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code>
+                    <p class="card-description">Assignement Id <code><?=$assignementid?></code>
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Student Name</th>
+                            <th>Student Email</th>
+                            <th>Uploaded File</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php
+                          $assignement=getAssignementByAssignementUniqueId($db,$assignementid);          
+                          foreach($assignement as $assignementGet){
+                        ?>
+
+
+                          <tr>
+                            <td><?=$assignementGet['studentName']?></td>
+                            <td><?=$assignementGet['studentEmail']?></td>
+                            <td> 
+                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='<?=$assignementGet['pdf']?>';">
+                              <i class="mdi mdi-open-in-app"></i> Open File
+                            </button>
+                            </td>
+                          </tr>
+
+                        <?php
+                          }
+                        ?>
+
+
+
+
+
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
 
-<?php
-              }
-?>
-
-
-
-
-
-
-            </div>
+            
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © scaleexam.in </span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> This is made with ❤️ by <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Chinmaya </a></span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> This is made with ❤️ by <a href="https://chinmayakumarbiswal.in/" target="_blank">Chinmaya </a></span>
             </div>
           </footer>
           <!-- partial -->
