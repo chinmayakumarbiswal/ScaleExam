@@ -21,6 +21,28 @@ else {
   header('location:./student.php');
 }
 
+
+if(isset($_POST['upload'])){
+  $filesname=$_FILES['uploadfile']['name'];
+  $fileslocation=$_FILES['uploadfile']['tmp_name'];
+  echo $filesname;
+  echo $fileslocation;
+
+  $sname=$studentData['name'];
+  $semail=$studentData['email'];
+  if(move_uploaded_file($fileslocation,"../assignementfile/$filesname")){
+      $query="INSERT INTO assignementfilelog (UniqueId,studentName,studentEmail,pdf) VALUES('$assignementid','$sname','$semail','$filesname')";
+      $run=mysqli_query($db,$query) or die(mysqli_error($db));
+      if ($run) {
+          header('location:./assignement.php?room='.$roomIdAuto);
+      }
+      else {
+          echo "inserted error";
+      }
+    }
+
+
+}
 ?>
 
 
@@ -224,8 +246,23 @@ else {
               </div>
             </div>
 
-
-
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Upload your file</h4>
+                    <form class="forms-sample" action="" method="post" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="exampleInputName1">Upload</label>
+                        <input type="file" class="form-control" id="exampleInputName1" name="uploadfile">
+                      </div>
+                      
+                      
+                      <button type="submit" class="btn btn-primary mr-2" name="upload">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
 
 
 
@@ -257,7 +294,7 @@ else {
                             <td><?=$assignementGet['studentName']?></td>
                             <td><?=$assignementGet['studentEmail']?></td>
                             <td> 
-                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='<?=$assignementGet['pdf']?>';">
+                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='../assignementfile/<?=$assignementGet['pdf']?>';">
                               <i class="mdi mdi-open-in-app"></i> Open File
                             </button>
                             </td>
