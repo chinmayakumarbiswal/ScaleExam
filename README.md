@@ -1,5 +1,5 @@
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/images/logo.png)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/images/logo.png)
 
 
 # ScaleExam
@@ -101,31 +101,31 @@ php -d memory_limit=-1 composer.phar require aws/aws-sdk-php
 ## Screenshots
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide1.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide1.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide2.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide2.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide3.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide3.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide4.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide4.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide5.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide5.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide6.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide6.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide7.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide7.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide8.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide8.JPG)
 
 
-![Logo](https://raw.githubusercontent.com/chinmayakumarbiswal/ScaleExam/main/gitdata/Slide9.JPG)
+![Logo](https://chinmayakumarbiswal.github.io/ScaleExam/gitdata/Slide9.JPG)
 
 
 
