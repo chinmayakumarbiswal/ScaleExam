@@ -5,6 +5,7 @@
       $email=mysqli_real_escape_string($db,$_POST['email']);
       $password=mysqli_real_escape_string($db,$_POST['password']);
       $userType=mysqli_real_escape_string($db,$_POST['userType']);
+      $password=md5($password);
       if ($userType == "Student") {
         $query="SELECT * FROM student WHERE email='$email' AND password='$password'";
         $runQuery=mysqli_query($db,$query);
@@ -30,14 +31,6 @@
             echo"<script>alert('Incorrect email and password !');</script>";
         }
       }
-
-
-      // echo $email."<br><br>";
-      // echo $password."<br><br>";
-      // echo $userType."<br><br>";
-
-        
-
 
     }
 
