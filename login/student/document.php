@@ -216,7 +216,7 @@ else {
                     <h4 class="card-title"><?=$documentGet['documentName']?></h4>
                     <p class="card-description">Room Id <code><?=$documentGet['roomIdAuto']?></code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='../alldocuments/<?=$documentGet['filename']?>';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="window.open('../alldocuments/<?=$documentGet['filename']?>', '_blank');">
                         <i class="mdi mdi-open-in-new"></i> Open Document 
                       </button> 
                     </div>

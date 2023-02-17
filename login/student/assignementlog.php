@@ -252,7 +252,7 @@ if(isset($_POST['upload'])){
                     <form class="forms-sample" action="" method="post" enctype="multipart/form-data">
                       <div class="form-group">
                         <label for="exampleInputName1">Upload</label>
-                        <input type="file" class="form-control" id="exampleInputName1" name="uploadfile" accept="application/pdf">
+                        <input type="file" class="form-control" id="exampleInputName1" name="uploadfile" accept="application/pdf" required>
                       </div>
                       
                       

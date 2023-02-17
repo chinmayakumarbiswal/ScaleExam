@@ -23,18 +23,16 @@ if(isset($_POST['createdocument']))
  $doucumentname= mysqli_real_escape_string($db,$_POST['documentName']);
  $filename=$_FILES['upload']['name'];
  $filelocation=$_FILES['upload']['tmp_name'];
-//  echo $doucumentname;
-//  echo $filename;
-//  echo $filelocation;
+ $filename=date('d-m-Y-H-i').$filename;
  if(move_uploaded_file($filelocation,"../alldocuments/$filename"))
  {
   $query="INSERT INTO documentlog (roomIdAuto,teachersEmail,documentName,filename) VALUES('$roomIdAuto','$email','$doucumentname','$filename')";
     $run=mysqli_query($db,$query) or die(mysqli_error($db));
     if ($run) {
-      header('location:./document.php?room='.$roomIdAuto);
+      echo "<script>alert('You successfully upload your document.');window.location.href = './document.php?room=".$roomIdAuto."';</script>";
     }
     else {
-      echo "inserted error";
+        echo "<script>alert('Somthing wrong.');</script>";
     }
  }
 }
@@ -48,17 +46,9 @@ if(isset($_POST['createdocument']))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ScaleExam</title>
-    <!-- plugins:css -->
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End Plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
-    <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
 
@@ -87,7 +77,7 @@ if(isset($_POST['createdocument']))
                                     </div>
                                     <div class="form-group">
                                         <label>Upload Document</label>
-                                        <input type="file" class="form-control form-control-lg" name="upload">
+                                        <input type="file" class="form-control form-control-lg" name="upload" accept="application/pdf,application/msword" required>
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +275,7 @@ if(isset($_POST['createdocument']))
                                     <p class="card-description">Room Id <code><?=$documentGet['roomIdAuto']?></code></p>
                                     <div class="template-demo">
                                         <button type="button" class="btn btn-outline-primary btn-icon-text"
-                                            onclick="location.href='../alldocuments/<?=$documentGet['filename']?>';">
+                                            onclick="window.open('../alldocuments/<?=$documentGet['filename']?>', '_blank');">
                                             <i class="mdi mdi-open-in-new"></i> Open Document
                                         </button>
                                     </div>
