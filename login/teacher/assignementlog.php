@@ -296,7 +296,7 @@ else {
                             <td><?=$assignementGet['studentName']?></td>
                             <td><?=$assignementGet['studentEmail']?></td>
                             <td> 
-                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='../assignementfile/<?=$assignementGet['pdf']?>';">
+                            <button type="button" class="btn btn-info btn-lg" onclick="window.open('../assignementfile/<?=$assignementGet['pdf']?>', '_blank');">
                               <i class="mdi mdi-open-in-app"></i> Open File
                             </button>
                             </td>

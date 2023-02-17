@@ -25,8 +25,7 @@ else {
 if(isset($_POST['upload'])){
   $filesname=$_FILES['uploadfile']['name'];
   $fileslocation=$_FILES['uploadfile']['tmp_name'];
-  echo $filesname;
-  echo $fileslocation;
+  $filesname=date('d-m-Y-H-i').$filesname;
 
   $sname=$studentData['name'];
   $semail=$studentData['email'];
@@ -34,7 +33,7 @@ if(isset($_POST['upload'])){
       $query="INSERT INTO assignementfilelog (UniqueId,studentName,studentEmail,pdf) VALUES('$assignementid','$sname','$semail','$filesname')";
       $run=mysqli_query($db,$query) or die(mysqli_error($db));
       if ($run) {
-          header('location:./assignement.php?room='.$roomIdAuto);
+          echo "<script>alert('You successfully upload your assignement.');window.location.href = './assignement.php?room=".$roomIdAuto."';</script>";
       }
       else {
           echo "inserted error";
@@ -253,7 +252,7 @@ if(isset($_POST['upload'])){
                     <form class="forms-sample" action="" method="post" enctype="multipart/form-data">
                       <div class="form-group">
                         <label for="exampleInputName1">Upload</label>
-                        <input type="file" class="form-control" id="exampleInputName1" name="uploadfile">
+                        <input type="file" class="form-control" id="exampleInputName1" name="uploadfile" accept="application/pdf">
                       </div>
                       
                       
@@ -294,7 +293,7 @@ if(isset($_POST['upload'])){
                             <td><?=$assignementGet['studentName']?></td>
                             <td><?=$assignementGet['studentEmail']?></td>
                             <td> 
-                            <button type="button" class="btn btn-info btn-lg" onclick="location.href='../assignementfile/<?=$assignementGet['pdf']?>';">
+                            <button type="button" class="btn btn-info btn-lg" onclick="window.open('../assignementfile/<?=$assignementGet['pdf']?>', '_blank');">
                               <i class="mdi mdi-open-in-app"></i> Open File
                             </button>
                             </td>
