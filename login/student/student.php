@@ -25,7 +25,7 @@ if(isset($_POST['joinRoom'])){
     $query="INSERT INTO joinroomstudent (name,details,teacherEmail,roomIdAuto,studentEmail) VALUES('$roomName','$details','$teacherEmail','$roomAuto','$studentEmail')";
     $run=mysqli_query($db,$query) or die(mysqli_error($db));
     if ($run) {
-    header('location:./student.php');
+    echo "<script>alert('You joined the Room successfully.');window.location.href = './student.php';</script>";
     }
     else {
       echo"<script>alert('Error found in join room !');</script>";
