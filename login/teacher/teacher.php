@@ -15,15 +15,15 @@ if(isset($_POST['insertRoom'])){
   $roomName=mysqli_real_escape_string($db,$_POST['roomName']);
   $details=mysqli_real_escape_string($db,$_POST['details']);
   $teacherEmail=$teacherData['email'];
-  $roomAuto=$roomName.randPass();
+  $roomAuto=date('Y').randPass();
 
   $query="INSERT INTO rooms (roomIdAuto,name,details,teacherEmail) VALUES('$roomAuto','$roomName','$details','$teacherEmail')";
   $run=mysqli_query($db,$query) or die(mysqli_error($db));
   if ($run) {
-  header('location:./teacher.php');
+  echo "<script>alert('You Room Created successfully.');window.location.href = './teacher.php';</script>";
   }
   else {
-    echo"<script>alert('Error fount in room creation !');</script>";
+    echo"<script>alert('Error found in room creation !');</script>";
   }
 
 
