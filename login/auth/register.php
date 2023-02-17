@@ -7,17 +7,12 @@ if(isset($_POST['createu'])){
   $useras=mysqli_real_escape_string($db,$_POST['userAs']);
   $bio=mysqli_real_escape_string($db,$_POST['bio']);
   $password=mysqli_real_escape_string($db,$_POST['password']);
+  $password=md5($password);
 
   $image_name=$_FILES['imageupload']['name'];
   $image_tmp=$_FILES['imageupload']['tmp_name'];
 
-  // echo $name."<br><br>";
-  // echo $email."<br><br>";
-  // echo $useras."<br><br>";
-  // echo $bio."<br><br>";
-  // echo $image_name."<br><br>";
-  // echo $image_tmp."<br><br>";
-  // echo $password."<br><br>";
+  $image_name=date('d-m-Y-H-i').$image_name;
 
 
   if ($useras == "Teacher") {
@@ -35,10 +30,10 @@ if(isset($_POST['createu'])){
         $query="INSERT INTO teacher (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
         $run=mysqli_query($db,$query) or die(mysqli_error($db));
         if ($run) {
-            header('location:./login.php');
+          echo "<script>alert('You Successfully create an account as a Teacher.');window.location.href = './login.php';</script>";
         }
         else {
-            echo "inserted error";
+          echo "<script>alert('Somthing Wrong.');window.location.href = './login.php';</script>";
         }
       }
     }
@@ -58,10 +53,10 @@ if(isset($_POST['createu'])){
         $query="INSERT INTO student (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
         $run=mysqli_query($db,$query) or die(mysqli_error($db));
         if ($run) {
-            header('location:./login.php');
+          echo "<script>alert('You Successfully create an account as a Student.');window.location.href = './login.php';</script>";
         }
         else {
-            echo "inserted error";
+          echo "<script>alert('Somthing Wrong.');window.location.href = './login.php';</script>";
         }
       }
     }
@@ -84,12 +79,7 @@ if(isset($_POST['createu'])){
     <!-- plugins:css -->
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
+    
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />

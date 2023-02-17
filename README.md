@@ -4,7 +4,7 @@
 
 # ScaleExam
 
-Online Exam system where you, Manage your classroom. Engage your students. Safe. Simple. Free.
+Online Exam system where you manage your classroom, engage your students, Safe, Simple, Free.
 
 
 ## Run Locally
@@ -69,7 +69,7 @@ git clone https://github.com/chinmayakumarbiswal/ScaleExam.git
 
 ## SDK
 
-To run this project, you will need to add the following SDK file
+To run this project, you need to add the following SDK file
 
 
 `Composer `
