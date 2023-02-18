@@ -22,6 +22,11 @@ if ($_GET['room']) {
   }
   $assignementid=$_GET['assignementid'];
   $getallDetails=getAssignementByAssignementId($db,$assignementid);
+  if ($getallDetails['roomIdAuto'] == $roomIdAuto) {
+    
+  }else {
+    echo "<script>alert('This assignment is created by another user.');window.location.href = './teacher.php';</script>";
+  }
 }
 else {
   header('location:./teacher.php');
