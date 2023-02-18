@@ -14,8 +14,20 @@ else {
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
 
+  $checkRoom=getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto);
+  if ($checkRoom['studentEmail'] == $email) {
+    
+  }else {
+    echo "<script>alert('You are not a valid user of this room.');window.location.href = './student.php';</script>";
+  }
+
   $assignementid=$_GET['assignementid'];
   $getallDetails=getAssignementByAssignementId($db,$assignementid);
+  if ($getallDetails['roomIdAuto'] == $roomIdAuto) {
+    
+  }else {
+    echo "<script>alert('You are not a student of this room.');window.location.href = './teacher.php';</script>";
+  }
 }
 else {
   header('location:./student.php');

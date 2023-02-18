@@ -119,4 +119,11 @@
         }
         return $data;
     }
+
+    function getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto){
+        $query="SELECT * FROM joinroomstudent WHERE roomIdAuto='$roomIdAuto'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
 ?>
