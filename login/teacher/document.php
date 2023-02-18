@@ -13,6 +13,12 @@ else {
 
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
+  $checkRoom=getRoomDetailsByStudent($db,$roomIdAuto);
+  if ($checkRoom['teacherEmail'] == $email) {
+    
+  }else {
+    echo "<script>alert('You are not a valid user of this room.');window.location.href = './teacher.php';</script>";
+  }
 }
 else {
   header('location:./teacher.php');

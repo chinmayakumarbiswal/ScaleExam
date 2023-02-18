@@ -13,9 +13,44 @@ else {
 
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
+  $checkRoom=getRoomDetailsByStudent($db,$roomIdAuto);
+  if ($checkRoom['teacherEmail'] == $email) {
+    
+  }else {
+    echo "<script>alert('You are not a valid user of this room.');window.location.href = './teacher.php';</script>";
+  }
 }
 else {
   header('location:./teacher.php');
+}
+$toDayIs=date('Y-m-d');
+// echo $toDayIs;
+if(isset($_POST['createExam']))
+{
+  $examName= mysqli_real_escape_string($db,$_POST['examName']);
+  $examdetails= mysqli_real_escape_string($db,$_POST['details']);
+  $examDate= mysqli_real_escape_string($db,$_POST['examDate']);
+  $examStartTime= mysqli_real_escape_string($db,$_POST['examStartTime']);
+  $examEndTime= mysqli_real_escape_string($db,$_POST['examEndTime']);
+  $examUniqueId=randPass().$roomIdAuto;
+  $teacherEmail= $teacherData['email'];
+  if ($toDayIs <= $examDate) {
+    if ($examEndTime >= $examStartTime) {
+      $query="INSERT INTO exam (examName,examdetails,examDate,examStartTime,examEndTime,examUniqueId,teacherEmail,roomIdAuto) VALUES('$examName','$examdetails','$examDate','$examStartTime','$examEndTime','$examUniqueId','$teacherEmail','$roomIdAuto')";
+      $run=mysqli_query($db,$query) or die(mysqli_error($db));
+      if ($run) {
+        echo "<script>alert('You successfully created a exam.');window.location.href = './exam.php?room=".$roomIdAuto."';</script>";
+      }
+      else {
+        echo "inserted error";
+      }
+    }else {
+      echo "<script>alert('Please enter a valid time.');</script>";
+    }
+    
+  }else {
+    echo "<script>alert('Please enter a valid date.');</script>";
+  }
 }
 
 ?>
@@ -40,6 +75,59 @@ else {
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+
+    <!-- Modal -->
+    <form action="" method="post" enctype="multipart/form-data">
+
+      <div class="modal fade" id="CreateEXAM" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Create Exam</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="col-md-12 grid-margin stretch-card">
+                          <div class="card">
+                              <div class="card-body">
+                                  <div class="form-group">
+                                      <label>Exam Name</label>
+                                      <input type="text" class="form-control form-control-lg"
+                                          placeholder="Exam Name" aria-label="documentName" name="examName" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleTextarea1">Exam Details</label>
+                                    <textarea class="form-control" id="exampleTextarea1" placeholder="Exam Details" name="details"rows="4" required> </textarea>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Exam Date</label>
+                                      <input type="date" class="form-control form-control-lg" aria-label="documentName" name="examDate" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Exam Start Time</label>
+                                      <input type="time" class="form-control form-control-lg" aria-label="documentName" name="examStartTime" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Exam End Time</label>
+                                      <input type="time" class="form-control form-control-lg" aria-label="documentName" name="examEndTime" required>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" name="createExam">Create</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </form>
+
+
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -136,7 +224,7 @@ else {
             
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create Exam</a>
+                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" aria-expanded="false" href="#CreateEXAM">+ Create Exam</a>
               </li>
               
 
@@ -186,7 +274,7 @@ else {
 
 
             <div class="page-header">
-              <h3 class="page-title"> Assignement </h3>
+              <h3 class="page-title"> Exams </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="./teacher.php">Teacher</a></li>
@@ -200,13 +288,21 @@ else {
 
             <div class="row">
 
-
+            <?php
+              $allExam=getExam($db,$roomIdAuto);          
+              foreach($allExam as $allExams){
+            ?>
               
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Test 1</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <h4 class="card-title"><?=$allExams['examName']?></h4>
+                    <p class="card-description"><?=$allExams['examdetails']?></p>
+                    <p class="card-description">Exam Date <code><?=$allExams['examDate']?></code></p>
+                    <p class="card-description">Exam Start Time <code><?=$allExams['examStartTime']?></code></p>
+                    <p class="card-description">Exam End Time <code><?=$allExams['examEndTime']?></code></p>
+                    <p class="card-description">Room Id <code><?=$allExams['roomIdAuto']?></code></p>
+                    <p class="card-description">Teacher Email <code><?=$allExams['teacherEmail']?></code></p>
                     <div class="template-demo">
                       <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
                         <i class="mdi mdi-open-in-new"></i> Open Exam 
@@ -217,7 +313,9 @@ else {
               </div>
 
 
-
+              <?php
+              }
+              ?>
 
 
 

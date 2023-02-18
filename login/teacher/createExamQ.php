@@ -11,7 +11,6 @@ else {
   header('location:../include/logout.php');
 }
 
-
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
   $checkRoom=getRoomDetailsByStudent($db,$roomIdAuto);
@@ -20,16 +19,33 @@ if ($_GET['room']) {
   }else {
     echo "<script>alert('You are not a valid user of this room.');window.location.href = './teacher.php';</script>";
   }
-  $assignementid=$_GET['assignementid'];
-  $getallDetails=getAssignementByAssignementId($db,$assignementid);
 }
 else {
   header('location:./teacher.php');
 }
 
+if(isset($_POST['createExam']))
+{
+  $examName= mysqli_real_escape_string($db,$_POST['examName']);
+  $examdetails= mysqli_real_escape_string($db,$_POST['details']);
+  $examDate= mysqli_real_escape_string($db,$_POST['examDate']);
+  $examStartTime= mysqli_real_escape_string($db,$_POST['examStartTime']);
+  $examEndTime= mysqli_real_escape_string($db,$_POST['examEndTime']);
+  $examUniqueId=randPass().$roomIdAuto;
+  $teacherEmail= $teacherData['email'];
+
+  $query="INSERT INTO exam (examName,examdetails,examDate,examStartTime,examEndTime,examUniqueId,teacherEmail) VALUES('$examName','$examdetails','$examDate','$examStartTime','$examEndTime','$examUniqueId','$teacherEmail')";
+  $run=mysqli_query($db,$query) or die(mysqli_error($db));
+  if ($run) {
+    header('location:./assignement.php?room='.$roomIdAuto);
+  }
+  else {
+    echo "inserted error";
+  }
+
+}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,47 +68,56 @@ else {
   </head>
   <body>
 
-
     <!-- Modal -->
     <form action="" method="post" enctype="multipart/form-data">
 
-        <div class="modal fade" id="CreatePDF" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Create Assignement</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>Assignement Name</label>
-                                        <input type="text" class="form-control form-control-lg"
-                                            placeholder="Document Name" aria-label="documentName" name="documentName">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="exampleTextarea1">Assignement Details</label>
-                                      <textarea class="form-control" id="exampleTextarea1" placeholder="Document Details" name="details"rows="4"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="createdocument">Create</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="modal fade" id="CreateEXAM" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Create Exam</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="col-md-12 grid-margin stretch-card">
+                          <div class="card">
+                              <div class="card-body">
+                                  <div class="form-group">
+                                      <label>Exam Name</label>
+                                      <input type="text" class="form-control form-control-lg"
+                                          placeholder="Exam Name" aria-label="documentName" name="examName">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleTextarea1">Exam Details</label>
+                                    <textarea class="form-control" id="exampleTextarea1" placeholder="Exam Details" name="details"rows="4"></textarea>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Exam Date</label>
+                                      <input type="date" class="form-control form-control-lg" aria-label="documentName" name="examDate">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Exam Start Time</label>
+                                      <input type="time" class="form-control form-control-lg" aria-label="documentName" name="examStartTime">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Exam End Time</label>
+                                      <input type="time" class="form-control form-control-lg" aria-label="documentName" name="examEndTime">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" name="createExam">Create</button>
+                  </div>
+              </div>
+          </div>
+      </div>
     </form>
-
-
 
 
     <div class="container-scroller">
@@ -191,7 +216,7 @@ else {
             
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" data-target="#CreatePDF">+ Create Assignement</a>
+                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" aria-expanded="false" href="#CreateEXAM">+ Create Exam</a>
               </li>
               
 
@@ -241,89 +266,43 @@ else {
 
 
             <div class="page-header">
-              <h3 class="page-title"> Assignement </h3>
+              <h3 class="page-title"> Exams </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="./teacher.php">Teacher</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Rooms</li>
                   <li class="breadcrumb-item active" aria-current="page">Room Id</li>
-                  <li class="breadcrumb-item active" aria-current="page">Assignement</li>
+                  <li class="breadcrumb-item active" aria-current="page">Exam</li>
                 </ol>
               </nav>
             </div>
 
 
+            <div class="row">
 
 
-
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title"><?=$getallDetails['name']?></h4>
-                  <div class="media">
-                    <div class="media-body">
-                      <p class="card-text"><?=$getallDetails['details']?></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-
-
-
-            <div class="col-lg-12 grid-margin stretch-card">
+              
+              <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Student Uploaded File</h4>
-                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code>
-                    <p class="card-description">Assignement Id <code><?=$assignementid?></code>
-                    </p>
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Student Name</th>
-                            <th>Student Email</th>
-                            <th>Uploaded File</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-
-                        <?php
-                          $assignement=getAssignementByAssignementUniqueId($db,$assignementid);          
-                          foreach($assignement as $assignementGet){
-                        ?>
-
-
-                          <tr>
-                            <td><?=$assignementGet['studentName']?></td>
-                            <td><?=$assignementGet['studentEmail']?></td>
-                            <td> 
-                            <button type="button" class="btn btn-info btn-lg" onclick="window.open('../assignementfile/<?=$assignementGet['pdf']?>', '_blank');">
-                              <i class="mdi mdi-open-in-app"></i> Open File
-                            </button>
-                            </td>
-                          </tr>
-
-                        <?php
-                          }
-                        ?>
-
-
-
-
-
-                        </tbody>
-                      </table>
+                    <h4 class="card-title">Test 1</h4>
+                    <p class="card-description">Room Id <code>55454545</code></p>
+                    <div class="template-demo">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
+                        <i class="mdi mdi-open-in-new"></i> Open Exam 
+                      </button> 
                     </div>
                   </div>
                 </div>
               </div>
 
-            
+
+
+
+
+
+
+            </div>
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../partials/_footer.html -->

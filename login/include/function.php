@@ -92,5 +92,15 @@
         }
         return $data;
     }
+
+    function getExam($db,$roomIdAuto){
+        $query="SELECT * FROM exam where roomIdAuto='$roomIdAuto' ORDER BY id DESC";
+        $run=mysqli_query($db,$query);
+        $data=array();
+        while($d=mysqli_fetch_assoc($run)){
+            $data[]=$d;
+        }
+        return $data;
+    }
     
 ?>
