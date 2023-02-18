@@ -31,20 +31,20 @@ else {
   header('location:./teacher.php');
 }
 
-if(isset($_POST['createExam']))
+if(isset($_POST['addquestion']))
 {
-  $examName= mysqli_real_escape_string($db,$_POST['examName']);
-  $examdetails= mysqli_real_escape_string($db,$_POST['details']);
-  $examDate= mysqli_real_escape_string($db,$_POST['examDate']);
-  $examStartTime= mysqli_real_escape_string($db,$_POST['examStartTime']);
-  $examEndTime= mysqli_real_escape_string($db,$_POST['examEndTime']);
-  $examUniqueId=randPass().$roomIdAuto;
-  $teacherEmail= $teacherData['email'];
+  $question= mysqli_real_escape_string($db,$_POST['question']);
+  $option1= mysqli_real_escape_string($db,$_POST['option1']);
+  $option2= mysqli_real_escape_string($db,$_POST['option2']);
+  $option3= mysqli_real_escape_string($db,$_POST['option3']);
+  $option4= mysqli_real_escape_string($db,$_POST['option4']);
+  $ans= mysqli_real_escape_string($db,$_POST['ans']);
+  
 
-  $query="INSERT INTO exam (examName,examdetails,examDate,examStartTime,examEndTime,examUniqueId,teacherEmail) VALUES('$examName','$examdetails','$examDate','$examStartTime','$examEndTime','$examUniqueId','$teacherEmail')";
+  $query="INSERT INTO questionbank (roomIdAuto,examUniqueId,question,option1,option2,option3,option4,ans) VALUES('$roomIdAuto','$examid','$question','$option1','$option2','$option3','$option4','$ans')";
   $run=mysqli_query($db,$query) or die(mysqli_error($db));
   if ($run) {
-    header('location:./assignement.php?room='.$roomIdAuto);
+    header('location:./createExamQ.php?room='.$roomIdAuto.'&examid='.$examid);
   }
   else {
     echo "inserted error";
@@ -63,70 +63,11 @@ if(isset($_POST['createExam']))
     <!-- plugins:css -->
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End Plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
-
-    <!-- Modal -->
-    <form action="" method="post" enctype="multipart/form-data">
-
-      <div class="modal fade" id="CreateEXAM" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Create Exam</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-                      <div class="col-md-12 grid-margin stretch-card">
-                          <div class="card">
-                              <div class="card-body">
-                                  <div class="form-group">
-                                      <label>Exam Name</label>
-                                      <input type="text" class="form-control form-control-lg"
-                                          placeholder="Exam Name" aria-label="documentName" name="examName">
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="exampleTextarea1">Exam Details</label>
-                                    <textarea class="form-control" id="exampleTextarea1" placeholder="Exam Details" name="details"rows="4"></textarea>
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Exam Date</label>
-                                      <input type="date" class="form-control form-control-lg" aria-label="documentName" name="examDate">
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Exam Start Time</label>
-                                      <input type="time" class="form-control form-control-lg" aria-label="documentName" name="examStartTime">
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Exam End Time</label>
-                                      <input type="time" class="form-control form-control-lg" aria-label="documentName" name="examEndTime">
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary" name="createExam">Create</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </form>
-
-
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -146,31 +87,6 @@ if(isset($_POST['createExam']))
                   <h5 class="mb-0 font-weight-normal"><?=$teacherData['name']?></h5>
                   <span>Teacher</span>
                 </div>
-              </div>
-              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <a href="#" class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-settings text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-onepassword  text-info"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-                  </div>
-                </a>
-                
               </div>
             </div>
           </li>
@@ -222,9 +138,6 @@ if(isset($_POST['createExam']))
             </button>
             
             <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="modal" aria-expanded="false" href="#CreateEXAM">+ Create Exam</a>
-              </li>
               
 
               <li class="nav-item dropdown">
@@ -289,22 +202,100 @@ if(isset($_POST['createExam']))
 
 
               
-              <div class="col-md-4 grid-margin stretch-card">
+              <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Test 1</h4>
-                    <p class="card-description">Room Id <code>55454545</code></p>
-                    <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
-                        <i class="mdi mdi-open-in-new"></i> Open Exam 
-                      </button> 
+                  <form action="" method="post">
+                    <div class="form-group">
+                      <label>Question</label>
+                      <input type="text" class="form-control p_input" name="question" required />
                     </div>
+
+                    <div class="form-group">
+                      <label>Option 1</label>
+                      <input type="text" class="form-control p_input" name="option1" required />
+                    </div>
+                    <div class="form-group">
+                      <label>Option 2</label>
+                      <input type="text" class="form-control p_input" name="option2" required />
+                    </div>
+                    <div class="form-group">
+                      <label>Option 3</label>
+                      <input type="text" class="form-control p_input" name="option3" required />
+                    </div>
+                    <div class="form-group">
+                      <label>Option 4</label>
+                      <input type="text" class="form-control p_input" name="option4" required />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleSelectAnsware">Correct Answare Is</label>
+                      <select class="form-control" id="exampleSelectGender" name="ans">
+                        <option value="a">Option 1</option>
+                        <option value="b">Option 2</option>
+                        <option value="c">Option 3</option>
+                        <option value="d">Option 4</option>
+                      </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary btn-icon-text" name="addquestion">
+                      Add Question 
+                    </button> 
+                  <form>
+                    
                   </div>
                 </div>
               </div>
 
 
 
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Sl No</th>
+                            <th>Question</th>
+                            <th>Option1</th>
+                            <th>Option2</th>
+                            <th>Option3</th>
+                            <th>Option4</th>
+                            <th>Answer</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php
+                          $allQuestion=getExamThroughUniqueId($db,$roomIdAuto,$examid);
+                          $count=1;          
+                          foreach($allQuestion as $allQuestions){
+                        ?>
+
+                          <tr>
+                            <td><?=$count?></td>
+                            <td><?=$allQuestions['question']?></td>
+                            <td><?=$allQuestions['option1']?></td>
+                            <td><?=$allQuestions['option2']?></td>
+                            <td><?=$allQuestions['option3']?></td>
+                            <td><?=$allQuestions['option4']?></td>
+                            <td><?=$allQuestions['ans']?></td>
+                          </tr>
+
+                        <?php
+                          $count++;
+                          }
+                        ?>
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
 
 
 
