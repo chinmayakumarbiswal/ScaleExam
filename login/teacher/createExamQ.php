@@ -19,6 +19,13 @@ if ($_GET['room']) {
   }else {
     echo "<script>alert('You are not a valid user of this room.');window.location.href = './teacher.php';</script>";
   }
+  $examid=$_GET['examid'];
+  $getallExamDetails=getExamByExamId($db,$examid);
+  if ($getallExamDetails['roomIdAuto'] == $roomIdAuto) {
+    
+  }else {
+    echo "<script>alert('This exam is created by another user.');window.location.href = './teacher.php';</script>";
+  }
 }
 else {
   header('location:./teacher.php');

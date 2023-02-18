@@ -304,7 +304,7 @@ if(isset($_POST['createExam']))
                     <p class="card-description">Room Id <code><?=$allExams['roomIdAuto']?></code></p>
                     <p class="card-description">Teacher Email <code><?=$allExams['teacherEmail']?></code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./createExamQ.php?room=<?=$allExams['roomIdAuto']?>&examid=<?=$allExams['examUniqueId']?>';">
                         <i class="mdi mdi-open-in-new"></i> Open Exam 
                       </button> 
                     </div>

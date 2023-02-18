@@ -103,4 +103,10 @@
         return $data;
     }
     
+    function getExamByExamId($db,$UniqueId){
+        $query="SELECT * FROM exam where examUniqueId='$UniqueId'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
 ?>
