@@ -37,12 +37,6 @@ else {
     <!-- plugins:css -->
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End Plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
@@ -198,7 +192,7 @@ else {
 
 
             <div class="page-header">
-              <h3 class="page-title"> Assignement </h3>
+              <h3 class="page-title"> Exams </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="./student.php">Student</a></li>
@@ -212,21 +206,34 @@ else {
 
             <div class="row">
 
-
+            <?php
+              $allExam=getExam($db,$roomIdAuto);          
+              foreach($allExam as $allExams){
+            ?>
               
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Test 1</h4>
-                    <p class="card-description">Room Id <code><?=$roomIdAuto?></code></p>
+                    <h4 class="card-title"><?=$allExams['examName']?></h4>
+                    <p class="card-description"><?=$allExams['examdetails']?></p>
+                    <p class="card-description">Exam Date <code><?=$allExams['examDate']?></code></p>
+                    <p class="card-description">Exam Start Time <code><?=$allExams['examStartTime']?></code></p>
+                    <p class="card-description">Exam End Time <code><?=$allExams['examEndTime']?></code></p>
+                    <p class="card-description">Room Id <code><?=$allExams['roomIdAuto']?></code></p>
+                    <p class="card-description">Teacher Email <code><?=$allExams['teacherEmail']?></code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='https://google.com';">
-                        <i class="mdi mdi-open-in-new"></i> Open Exam 
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./createExamQ.php?room=<?=$allExams['roomIdAuto']?>&examid=<?=$allExams['examUniqueId']?>';">
+                        <i class="mdi mdi-open-in-new"></i> Start Exam 
                       </button> 
                     </div>
                   </div>
                 </div>
               </div>
+
+
+              <?php
+              }
+              ?>
 
 
 
