@@ -126,4 +126,18 @@
         $data=mysqli_fetch_assoc($run);
         return $data;
     }
+
+    function getExamIdByRoomID($db,$myExamId){
+        $query="SELECT * FROM exam WHERE examUniqueId='$myExamId'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
+
+    function getQuestionFromQuestionBank($db,$roomIdAuto,$examUniqueId,$qId){
+        $query="SELECT * FROM questionbank WHERE roomIdAuto='$roomIdAuto' AND examUniqueId='$examUniqueId' AND id > '$qId'";
+        $run=mysqli_query($db,$query);
+        $data=mysqli_fetch_assoc($run);
+        return $data;
+    }
 ?>

@@ -20,12 +20,86 @@ if ($_GET['room']) {
   }else {
     echo "<script>alert('You are not a valid user of this room.');window.location.href = './student.php';</script>";
   }
+  
+  $myExamId=$_GET['examid'];
+  $checkExamId=getExamIdByRoomID($db,$myExamId);
+  if ($checkExamId['roomIdAuto'] == $roomIdAuto) {
+    if (isset($_GET['qis'])) {
+      $qId=$_GET['qis'];
+    }else {
+      $qId=1;
+    }
+
+    if ($qId==0) {
+      $showModal='<script type="text/javascript">message();</script>';
+    }else {
+      $showModal="";
+    }
+
+
+    $AllQuestion=getQuestionFromQuestionBank($db,$roomIdAuto,$myExamId,$qId);
+
+    $checkNextQ=getQuestionFromQuestionBank($db,$roomIdAuto,$myExamId,$AllQuestion['id']);
+    if (!$checkNextQ) {
+      $buttomSubmitIs='<button type="submit" class="btn btn-outline-primary btn-icon-text" name="finalQ">Submit Test</button> ';
+    }else {
+      $buttomSubmitIs='<button type="submit" class="btn btn-outline-primary btn-icon-text" name="nextQ">Next Question</button> ';
+    }
+  }else {
+    echo "<script>alert('You are not a valid user of this exam.');window.location.href = './student.php';</script>";
+  }
 }
 else {
   header('location:./student.php');
 }
 
-$_SESSION['examMark']=0;
+
+if($_SESSION['examMark']){
+
+}else {
+  $_SESSION['examMark']=0;
+
+}
+
+
+if(isset($_POST['nextQ'])){
+  $selectOption=mysqli_real_escape_string($db,$_POST['andIs']);
+  $rightOption=mysqli_real_escape_string($db,$_POST['rightOption']);
+  $questionId=mysqli_real_escape_string($db,$_POST['questionId']);
+
+
+  if ($selectOption == $rightOption) {
+    $_SESSION['examMark'] ++ ;
+  }
+
+  header('location:./examstart.php?room='.$roomIdAuto.'&examid='.$myExamId.'&qis='.$questionId);
+}
+
+
+
+if(isset($_POST['finalQ'])){
+  $selectOption=mysqli_real_escape_string($db,$_POST['andIs']);
+  $rightOption=mysqli_real_escape_string($db,$_POST['rightOption']);
+  $questionId=mysqli_real_escape_string($db,$_POST['questionId']);
+
+
+  if ($selectOption == $rightOption) {
+    $_SESSION['examMark'] ++ ;
+  }
+  $finalMarkIs=$_SESSION['examMark'];
+
+  echo "<script>alert('You mark is".$_SESSION['examMark'].".');</script>";
+  $query="INSERT INTO examresult (roomIdAuto,examUniqueId,studentEmail,mark) VALUES('$roomIdAuto','$myExamId','$email','$finalMarkIs')";
+  $run=mysqli_query($db,$query) or die(mysqli_error($db));
+  if ($run) {
+    echo "<script>alert('You exam submit Successfully.');window.location.href = './student.php';</script>";
+  }
+  else {
+    echo "<script>alert('Somthing Wrong re-appear the exam or contact to admin.');window.location.href = './student.php';</script>";
+  }
+}
+
+
 ?>
 
 
@@ -37,6 +111,7 @@ $_SESSION['examMark']=0;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ScaleExam</title>
     <!-- plugins:css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -44,6 +119,27 @@ $_SESSION['examMark']=0;
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
   </head>
   <body>
+    <!-- Modal -->
+    <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Exam Instructions for Candidates</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="FullScreenMode()">Start Exam</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
     <div class="container-scroller">
       <!-- partial:../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -190,6 +286,8 @@ $_SESSION['examMark']=0;
         </nav>
         <!-- partial -->
         <div class="main-panel">
+
+        <form method="POST" action="">
           <div class="content-wrapper">
 
 
@@ -206,51 +304,81 @@ $_SESSION['examMark']=0;
             </div>
 
 
+
             <div class="row">
 
-            <?php
-              $allExam=getExam($db,$roomIdAuto);          
-              foreach($allExam as $allExams){
-            ?>
-              
-              <div class="col-md-4 grid-margin stretch-card">
+              <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"><?=$allExams['examName']?></h4>
-                    <p class="card-description"><?=$allExams['examdetails']?></p>
-                    <p class="card-description">Exam Date <code><?=$allExams['examDate']?></code></p>
-                    <p class="card-description">Exam Start Time <code><?=$allExams['examStartTime']?></code></p>
-                    <p class="card-description">Exam End Time <code><?=$allExams['examEndTime']?></code></p>
-                    <p class="card-description">Room Id <code><?=$allExams['roomIdAuto']?></code></p>
-                    <p class="card-description">Teacher Email <code><?=$allExams['teacherEmail']?></code></p>
-                    <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./examstart.php?room=<?=$allExams['roomIdAuto']?>&examid=<?=$allExams['examUniqueId']?>&qis=0';">
-                        <i class="mdi mdi-open-in-new"></i> Start Exam 
-                      </button> 
+                    <h4 class="card-title">Q. <?=$AllQuestion['question']?> ?</h4>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="andIs" id="andIs" value="a" required> <?=$AllQuestion['option1']?> </label>
                     </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="andIs" id="andIs" value="b" required> <?=$AllQuestion['option2']?> </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="andIs" id="andIs" value="c" required> <?=$AllQuestion['option3']?> </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="andIs" id="andIs" value="d" required> <?=$AllQuestion['option4']?> </label>
+                    </div>
+
+                    <input class="form-control" type="hidden" name="rightOption" value="<?=$AllQuestion['ans']?>">
+                    <input class="form-control" type="hidden" name="questionId" value="<?=$AllQuestion['id']?>">
+                    
                   </div>
                 </div>
               </div>
 
 
-              <?php
-              }
-              ?>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Q. what is aws ?</h4>
+                    
+                  </div>
+                </div>
+              </div>
+
+            </div>
 
 
 
 
+            <div class="row">
 
+              <div class="col-md-8">
+              </div>
+
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <?=$buttomSubmitIs?>
+                  </div>
+                </div>
+              </div>
 
 
             </div>
+
+
+            
           </div>
+        </form>
+
+
           <!-- content-wrapper ends -->
           <!-- partial:../partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © scaleexam.in </span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> This is made with ❤️ by <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Chinmaya </a></span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> This is made with ❤️ by <a href="https://chinmayakumarbiswal.in" target="_blank">Chinmaya </a></span>
             </div>
           </footer>
           <!-- partial -->
@@ -274,5 +402,59 @@ $_SESSION['examMark']=0;
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
+    <script>
+
+      function message(){
+        $('#warning').modal('show');
+      }
+      
+      $(window).on('load', function() {
+        // $('#warning').modal('show');
+      });
+       
+      
+      function FullScreenMode(){
+        $('#warning').modal('hide');
+        document.documentElement.requestFullscreen()
+        
+      }  
+
+      // prevent key press 
+      $(document).keydown(function (event) {
+        // Prevent F12 -
+        if (event.keyCode == 123) {
+          return false;
+        }
+        // Prevent F11 fullscreenmode-
+        if (event.keyCode == 122) {
+          return false;
+        }
+        // Prevent Ctrl+a = disable select all
+        // Prevent Ctrl+u = disable view page source
+        // Prevent Ctrl+s = disable save
+        // if (event.ctrlKey && (event.keyCode === 85 || event.keyCode === 83 || event.keyCode ===65 )) {
+        //   return false;
+        // }
+        // Prevent Ctrl+Shift+I = disabled debugger console using keys open
+        // else if (event.ctrlKey && event.shiftKey && event.keyCode === 73)
+        // {
+        //   return false;
+        // }
+      });
+
+      // prevent tab change 
+      $(window).blur(function() {
+        alert('You are not allowed to leave page ');
+        
+      });
+
+      // prevent right click
+      document.oncontextmenu = function() {
+        return false;
+      }
+
+      
+    </script>
+    <?=$showModal?>
   </body>
 </html>
