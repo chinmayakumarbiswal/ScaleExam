@@ -88,7 +88,7 @@ if(isset($_POST['finalQ'])){
   }
   $finalMarkIs=$_SESSION['examMark'];
 
-  echo "<script>alert('You mark is".$_SESSION['examMark'].".');</script>";
+  // echo "<script>alert('You mark is".$_SESSION['examMark'].".');</script>";
   $query="INSERT INTO examresult (roomIdAuto,examUniqueId,studentEmail,mark) VALUES('$roomIdAuto','$myExamId','$email','$finalMarkIs')";
   $run=mysqli_query($db,$query) or die(mysqli_error($db));
   if ($run) {
@@ -340,8 +340,8 @@ if(isset($_POST['finalQ'])){
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Q. what is aws ?</h4>
-                    
+                    <div id="my_camera" onload="take_snapshot()"></div>
+                    <div id="results"></div>
                   </div>
                 </div>
               </div>
@@ -399,9 +399,10 @@ if(isset($_POST['finalQ'])){
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
     <script src="../assets/js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    
     <script>
 
       function message(){
@@ -432,14 +433,14 @@ if(isset($_POST['finalQ'])){
         // Prevent Ctrl+a = disable select all
         // Prevent Ctrl+u = disable view page source
         // Prevent Ctrl+s = disable save
-        // if (event.ctrlKey && (event.keyCode === 85 || event.keyCode === 83 || event.keyCode ===65 )) {
-        //   return false;
-        // }
+        if (event.ctrlKey && (event.keyCode === 85 || event.keyCode === 83 || event.keyCode ===65 )) {
+          return false;
+        }
         // Prevent Ctrl+Shift+I = disabled debugger console using keys open
-        // else if (event.ctrlKey && event.shiftKey && event.keyCode === 73)
-        // {
-        //   return false;
-        // }
+        else if (event.ctrlKey && event.shiftKey && event.keyCode === 73)
+        {
+          return false;
+        }
       });
 
       // prevent tab change 
@@ -453,6 +454,41 @@ if(isset($_POST['finalQ'])){
         return false;
       }
 
+      
+
+
+      Webcam.set({
+        width: 300,
+        height: 300,
+        image_format: "jpeg",
+        jpeg_quality: 90,
+    	  constraints: {
+   			  facingMode: 'environment'
+ 		    }
+      });
+ 
+      Webcam.attach("#my_camera");
+     
+ 
+      function take_snapshot() {
+        Webcam.snap(function (data_uri) {
+          $(".image-tag").val(data_uri);
+          document.getElementById("results").innerHTML =
+            '<img src="' + data_uri + '" />';
+        });
+
+        setTimeout(take_snapshot, 1000);
+      }
+      
+
+      navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+ 
+      navigator.getMedia({video:true},function() {
+        console.log("load");
+        setTimeout("take_snapshot()", 1000);
+      },function() {
+        console.log("web cam not load");
+      });
       
     </script>
     <?=$showModal?>
