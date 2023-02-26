@@ -29,18 +29,24 @@ if(isset($_POST['createdocument']))
  $doucumentname= mysqli_real_escape_string($db,$_POST['documentName']);
  $filename=$_FILES['upload']['name'];
  $filelocation=$_FILES['upload']['tmp_name'];
+ $filestype=$_FILES['upload']['type'];
  $filename=date('d-m-Y-H-i').$filename;
- if(move_uploaded_file($filelocation,"../alldocuments/$filename"))
- {
-  $query="INSERT INTO documentlog (roomIdAuto,teachersEmail,documentName,filename) VALUES('$roomIdAuto','$email','$doucumentname','$filename')";
-    $run=mysqli_query($db,$query) or die(mysqli_error($db));
-    if ($run) {
-      echo "<script>alert('You successfully upload your document.');window.location.href = './document.php?room=".$roomIdAuto."';</script>";
+ if ($filestype == "application/pdf" ) {
+    if(move_uploaded_file($filelocation,"../alldocuments/$filename"))
+    {
+    $query="INSERT INTO documentlog (roomIdAuto,teachersEmail,documentName,filename) VALUES('$roomIdAuto','$email','$doucumentname','$filename')";
+        $run=mysqli_query($db,$query) or die(mysqli_error($db));
+        if ($run) {
+        echo "<script>alert('You successfully upload your document.');window.location.href = './document.php?room=".$roomIdAuto."';</script>";
+        }
+        else {
+            echo "<script>alert('Somthing wrong.');</script>";
+        }
     }
-    else {
-        echo "<script>alert('Somthing wrong.');</script>";
-    }
+ }else {
+    echo "<script>alert('Please upload only in PDF format.');</script>";
  }
+ 
 }
 ?>
 
