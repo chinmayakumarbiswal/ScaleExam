@@ -10,6 +10,7 @@ if(isset($_POST['createu'])){
   $password=md5($password);
 
   $image_name=$_FILES['imageupload']['name'];
+  $image_type=$_FILES['imageupload']['type'];
   $image_tmp=$_FILES['imageupload']['tmp_name'];
 
   $image_name=date('d-m-Y-H-i').$image_name;
@@ -26,16 +27,21 @@ if(isset($_POST['createu'])){
       <?php
     }
     else {
-      if(move_uploaded_file($image_tmp,"../teacher/image/$image_name")){
-        $query="INSERT INTO teacher (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
-        $run=mysqli_query($db,$query) or die(mysqli_error($db));
-        if ($run) {
-          echo "<script>alert('You Successfully create an account as a Teacher.');window.location.href = './login.php';</script>";
+      if ($image_type=="image/jpeg" || $image_type=="image/jpg" || $image_type=="image/png") {
+        if(move_uploaded_file($image_tmp,"../teacher/image/$image_name")){
+          $query="INSERT INTO teacher (name,email,bio,profileimage,password) VALUES('$name','$email','$bio','$image_name','$password')";
+          $run=mysqli_query($db,$query) or die(mysqli_error($db));
+          if ($run) {
+            echo "<script>alert('You Successfully create an account as a Teacher.');window.location.href = './login.php';</script>";
+          }
+          else {
+            echo "<script>alert('Somthing Wrong.');window.location.href = './login.php';</script>";
+          }
         }
-        else {
-          echo "<script>alert('Somthing Wrong.');window.location.href = './login.php';</script>";
-        }
+      }else {
+        echo"<script>alert('Please Upload your profile as JPEG,JPG or PNG file Only');</script>";
       }
+      
     }
   }
   else if ($useras == "Student") {
