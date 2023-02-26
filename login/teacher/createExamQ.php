@@ -252,7 +252,7 @@ if(isset($_POST['addquestion']))
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-
+                    <h3>Question</h3>
                     <div class="table-responsive">
                       <table class="table table-striped">
                         <thead>
@@ -286,6 +286,56 @@ if(isset($_POST['addquestion']))
 
                         <?php
                           $count++;
+                          }
+                        ?>
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h3>Result</h3>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Sl No</th>
+                            <th>Name Of Student</th>
+                            <th>Email Of Student</th>
+                            <th>Total Mark</th>
+                            <th>Student Mark</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php
+                          $allResult=getExamResult($db,$roomIdAuto,$examid);
+                          $countResult=1;          
+                          foreach($allResult as $allResults){
+                            $getEachStudentdata=getStudentDetails($db,$allResults['studentEmail']);
+                        ?>
+
+                          <tr>
+                            <td><?=$countResult?></td>
+                            <td><?=$getEachStudentdata['name']?></td>
+                            <td><?=$allResults['studentEmail']?></td>
+                            <td><?=$count-1?></td>
+                            <td><?=$allResults['mark']?></td>
+                          </tr>
+
+                        <?php
+                          $countResult++;
                           }
                         ?>
 

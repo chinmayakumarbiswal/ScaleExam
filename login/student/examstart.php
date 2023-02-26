@@ -416,7 +416,7 @@ if(isset($_POST['finalQ'])){
       
       function FullScreenMode(){
         $('#warning').modal('hide');
-        document.documentElement.requestFullscreen()
+        // document.documentElement.requestFullscreen()
         
       }  
 
