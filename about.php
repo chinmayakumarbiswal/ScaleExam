@@ -63,6 +63,53 @@
             <div class="col-lg-4 mb-sm-4 ftco-animate">
                 <div class="staff">
                     <div class="d-flex mb-4">
+                        <div class="img" style="background-image:url('./images/team/kiran.jpg')">
+                        </div>
+                        <div class="info ml-4">
+                            <h3><a href="teacher-single.html">Kiran Kumar Malik</a></h3>
+                            <span class="position">Student</span>
+                            <p class="ftco-social d-flex">
+                                <a href="https://api.whatsapp.com/send/?phone=917848051078&text&app_absent=Hi" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/office/16/000000/whatsapp.png" height="25px" /></a>
+                                <a href="https://www.facebook.com/profile.php?id=100013623729164&mibextid=ZbWKwL" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/facebook-new.png" height="25px"/></span></a>
+                                <a href="https://www.instagram.com/spyder__.kiran/" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/instagram-new.png" height="25px" /></a>
+                                <a href="https://www.linkedin.com/in/kiran-kumar-malik-01006a202/" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/linkedin-circled.png" height="25px" /></a>
+                                <a href="https://github.com/KiranKumarMalik" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/git.png" height="25px"/></span></a>
+                                <a href="http://kirankumarmalik.me/" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-web-media-agency-flaticons-lineal-color-flat-icons.png" height="25px" /></a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <p>Junior UI developer with 2 years experience and specialization in AWS Cloud Technology. Completed the AWS Solutions Architect-Associate Certification. AWS Cloud Services-Practitioner & Solutions Architect level services with 1 year of project experiences in academic and cloud platform.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-sm-4 ftco-animate">
+                <div class="staff">
+                    <div class="d-flex mb-4">
+                        <div class="img" style="background-image:url('./images/team/ashutosh.jpg')">
+                        </div>
+                        <div class="info ml-4">
+                            <h3><a href="teacher-single.html">Ashutosh Moharana</a></h3>
+                            <span class="position">Student</span>
+                            <p class="ftco-social d-flex">
+                            <a href="https://twitter.com/theAsutosh" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/office/16/000000/twitter.png" height="25px" /></a>
+                                <a href="https://www.facebook.com/Ashutosh Moharana" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/facebook-new.png" height="25px"/></span></a>
+                                <a href="https://www.instagram.com/_theasutosh11/" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/instagram-new.png" height="25px" /></a>
+                                <a href="https://www.linkedin.com/in/Ashutosh Moharana" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/linkedin-circled.png" height="25px" /></a>
+                                <a href="https://github.com/ashutosh064" class="d-flex justify-content-center align-items-center"><img src="https://img.icons8.com/nolan/64/git.png" height="25px"/></span></a>
+                                </p>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <p>I am a self motivated person, believe in smart work.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-sm-4 ftco-animate">
+                <div class="staff">
+                    <div class="d-flex mb-4">
                         <div class="img" style="background-image:url('./images/team/ashutosh.jpg')">
                         </div>
                         <div class="info ml-4">
