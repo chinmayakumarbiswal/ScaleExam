@@ -37,11 +37,13 @@ else {
 if(isset($_POST['upload'])){
   $filesname=$_FILES['uploadfile']['name'];
   $fileslocation=$_FILES['uploadfile']['tmp_name'];
+  $filestype=$_FILES['uploadfile']['type'];
   $filesname=date('d-m-Y-H-i').$filesname;
 
   $sname=$studentData['name'];
   $semail=$studentData['email'];
-  if(move_uploaded_file($fileslocation,"../assignementfile/$filesname")){
+  if ($filestype == "application/pdf" ) {
+    if(move_uploaded_file($fileslocation,"../assignementfile/$filesname")){
       $query="INSERT INTO assignementfilelog (UniqueId,studentName,studentEmail,pdf) VALUES('$assignementid','$sname','$semail','$filesname')";
       $run=mysqli_query($db,$query) or die(mysqli_error($db));
       if ($run) {
@@ -51,6 +53,10 @@ if(isset($_POST['upload'])){
           echo "inserted error";
       }
     }
+  }else {
+    echo "<script>alert('Please upload only in PDF format.');</script>";
+  }
+  
 
 
 }
