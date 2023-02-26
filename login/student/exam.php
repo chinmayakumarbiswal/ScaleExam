@@ -26,6 +26,8 @@ else {
 }
 
 $_SESSION['examMark']=0;
+$currentDateIs=date('Y-m-d', time());
+$currentTimeIs=date('H:i', time());
 ?>
 
 
@@ -211,6 +213,18 @@ $_SESSION['examMark']=0;
             <?php
               $allExam=getExam($db,$roomIdAuto);          
               foreach($allExam as $allExams){
+                if ($currentDateIs == $allExams['examDate']) {
+                  if ($currentTimeIs > $allExams['examStartTime'] && $currentTimeIs < $allExams['examEndTime']) {
+                    $examBtnenable="";
+                  }else {
+                    $examBtnenable="disabled";
+                  }
+                }else {
+                  $examBtnenable="disabled";
+                }
+
+                $studentWiseExam=getExamResult($db,$allExams['roomIdAuto'],$allExams['examUniqueId'],$email);
+                
             ?>
               
               <div class="col-md-4 grid-margin stretch-card">
@@ -223,8 +237,9 @@ $_SESSION['examMark']=0;
                     <p class="card-description">Exam End Time <code><?=$allExams['examEndTime']?></code></p>
                     <p class="card-description">Room Id <code><?=$allExams['roomIdAuto']?></code></p>
                     <p class="card-description">Teacher Email <code><?=$allExams['teacherEmail']?></code></p>
+                    <p class="card-description">Mark :  <code><?=$studentWiseExam['mark']?></code></p>
                     <div class="template-demo">
-                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./examstart.php?room=<?=$allExams['roomIdAuto']?>&examid=<?=$allExams['examUniqueId']?>&qis=0';">
+                      <button type="button" class="btn btn-outline-primary btn-icon-text" onclick="location.href='./examstart.php?room=<?=$allExams['roomIdAuto']?>&examid=<?=$allExams['examUniqueId']?>&qis=0';" <?=$examBtnenable?>>
                         <i class="mdi mdi-open-in-new"></i> Start Exam 
                       </button> 
                     </div>

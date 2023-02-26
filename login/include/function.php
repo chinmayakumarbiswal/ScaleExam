@@ -141,13 +141,10 @@
         return $data;
     }
 
-    function getExamResult($db,$roomIdAuto,$examid){
-        $query="SELECT * FROM examresult where roomIdAuto='$roomIdAuto' AND examUniqueId='$examid' ORDER BY id DESC";
+    function getExamResult($db,$roomIdAuto,$examid,$Studentemail){
+        $query="SELECT * FROM examresult where roomIdAuto='$roomIdAuto' AND examUniqueId='$examid' AND studentEmail='$Studentemail' ORDER BY id DESC";
         $run=mysqli_query($db,$query);
-        $data=array();
-        while($d=mysqli_fetch_assoc($run)){
-            $data[]=$d;
-        }
+        $data=mysqli_fetch_assoc($run);
         return $data;
     }
 ?>
