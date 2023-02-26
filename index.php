@@ -26,7 +26,7 @@
                 data-scrollax-parent="true">
                 <div class="col-md-8 ftco-animate text-center">
                     <h1 class="mb-4">Manage your classroom. Engage your students. Safe. Simple. Free.</h1>
-                    <p><a href="#" class="btn btn-primary px-4 py-3">Login</a> <a href="#"
+                    <p><a href="./login/auth/login.php" class="btn btn-primary px-4 py-3">Login</a> <a href="./login/auth/register.php"
                             class="btn btn-secondary px-4 py-3">Create Account</a></p>
                 </div>
             </div>

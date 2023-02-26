@@ -1,17 +1,16 @@
 <footer class="ftco-footer ftco-bg-dark ftco-section img"
-        style="background-image:url(images/IndiaFlagwithcutmlogo.jpg);background-attachment:fixed">
+        style="background-image:url(images/loginbg.jpg);background-attachment:fixed">
         <div class="overlay"></div>
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-6">
                     <div class="ftco-footer-widget mb-4">
                         <h2><a class="navbar-brand" href="index.html">
-                            <img class="img-fluid" src="./images/logo.png" width="100px" alt="">
+                            <img class="img-fluid" src="./images/scalelogo.png" width="100px" alt="">
                         </a>
                     </h2>
                         <p>ScaleExam is a global education network that helps connect all learners with the people and resources needed to reach their full potential.</p>
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                            <li class="ftco-animate"><a href="#"><img src="https://img.icons8.com/parakeet/48/000000/experimental-twitter-parakeet.png"/></a></li>
                             <li class="ftco-animate"><a href="#"><img src="https://img.icons8.com/fluency/48/000000/instagram-new.png"/></a></li>
                             <li class="ftco-animate"><a href="#"><img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"/></a></li>
                             <li class="ftco-animate"><a href="#"><img src="https://img.icons8.com/plasticine/100/000000/github-squared.png" height="50px" /></a></li>
@@ -35,7 +34,7 @@
                         <h2 class="ftco-heading-2">Have a Questions?</h2>
                         <div class="block-23 mb-3">
                             <ul>
-                                <li><img src="https://img.icons8.com/arcade/64/000000/experimental-marker-arcade.png" height="40px"/><span class="text">CUTM, BBSR</span></li>
+                                <li><a href="https://goo.gl/maps/MUTSUvVMQXMRAemC8"><img src="https://img.icons8.com/fluency/48/null/google-maps-new.png" height="40px"/><span class="text">Centurion University of Technology and Management, BBSR</span></a></li>
                                 <li><a href="#"><img src="https://img.icons8.com/color-glass/48/000000/phone-disconnected.png" height="40px"/><span class="text">9556328216</span></a></li>
                                 <li><a href="#"><img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-email-notifications-justicon-flat-justicon-1.png" height="35px" /><span class="text">situ@chinmayakumarbiswal.in</span></a></li>
                             </ul>
