@@ -320,7 +320,7 @@ if(isset($_POST['addquestion']))
                         <tbody>
 
                         <?php
-                          $allResult=getExamResult($db,$roomIdAuto,$examid);
+                          $allResult=getExamResultByTeacher($db,$roomIdAuto,$examid);
                           $countResult=1;          
                           foreach($allResult as $allResults){
                             $getEachStudentdata=getStudentDetails($db,$allResults['studentEmail']);
