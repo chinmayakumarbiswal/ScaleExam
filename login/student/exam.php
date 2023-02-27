@@ -14,7 +14,7 @@ else {
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
 
-  $checkRoom=getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto);
+  $checkRoom=getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto,$email);
   if ($checkRoom['studentEmail'] == $email) {
     
   }else {

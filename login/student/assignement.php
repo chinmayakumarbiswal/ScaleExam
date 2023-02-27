@@ -14,7 +14,7 @@ else {
 if ($_GET['room']) {
   $roomIdAuto=$_GET['room'];
 
-  $checkRoom=getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto);
+  $checkRoom=getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto,$email);
   if ($checkRoom['studentEmail'] == $email) {
     
   }else {
@@ -46,7 +46,7 @@ else {
     <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <link rel="shortcut icon" href="favicon.png" />
   </head>
   <body>
     <div class="container-scroller">

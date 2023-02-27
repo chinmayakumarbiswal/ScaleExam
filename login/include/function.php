@@ -120,8 +120,8 @@
         return $data;
     }
 
-    function getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto){
-        $query="SELECT * FROM joinroomstudent WHERE roomIdAuto='$roomIdAuto'";
+    function getRoomDetailsByStudentroomIdAuro($db,$roomIdAuto,$email){
+        $query="SELECT * FROM joinroomstudent WHERE roomIdAuto='$roomIdAuto' AND studentEmail='$email'";
         $run=mysqli_query($db,$query);
         $data=mysqli_fetch_assoc($run);
         return $data;
@@ -147,4 +147,6 @@
         $data=mysqli_fetch_assoc($run);
         return $data;
     }
+
+    
 ?>
