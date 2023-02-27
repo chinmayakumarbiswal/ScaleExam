@@ -2,11 +2,32 @@
 <html lang="en">
 
   <head>
-    <title>Online</title>
+    <title>Scale Exam</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+    <meta name="keywords" content="Scale Exam">
+    <meta name="author" content="Chinmaya Kumar Biswal">
+	  <meta name="description" content="Scale Exam, Manage your classroom. Engage your students. Safe. Simple. Free.">
+        
+    
+    <meta name="twitter:description" content="Scale Exam, Manage your classroom. Engage your students. Safe. Simple. Free.">
+    <meta name="twitter:image" content="http://scaleexam.tech/images/scaleexamlogo.png">
+
+    <meta property="og:description" content="Scale Exam, Manage your classroom. Engage your students. Safe. Simple. Free.">
+    <meta property="og:image" content="http://scaleexam.tech/images/scaleexamlogo.png">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Scale Exam, Manage your classroom. Engage your students. Safe. Simple. Free.">
+    
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
   </head>
 
 <body>
