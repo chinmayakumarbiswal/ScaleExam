@@ -136,7 +136,12 @@ if(isset($_POST['addquestion']))
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu"></span>
             </button>
-            
+            <ul class="navbar-nav w-100">
+              <li class="nav-item w-100">
+                <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                </form>
+              </li>
+            </ul>
             <ul class="navbar-nav navbar-nav-right">
               
 
@@ -354,12 +359,9 @@ if(isset($_POST['addquestion']))
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © scaleexam.in </span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> This is made with ❤️ by <a href="https://chinmayakumarbiswal.in/" target="_blank">Chinmaya </a></span>
-            </div>
-          </footer>
+          <?php
+            include_once('../include/footer.php')
+          ?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
